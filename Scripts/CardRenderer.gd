@@ -1,5 +1,4 @@
 extends Control
-
 const images_folder_path = "res://Textures/Cards/Poker/"
 
 var suit_names = {

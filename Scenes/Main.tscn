@@ -17,7 +17,3 @@ color = Color( 0.54902, 0.745098, 0.933333, 1 )
 script = ExtResource( 1 )
 
 [node name="Menu" parent="." instance=ExtResource( 2 )]
-margin_left = 960.0
-margin_top = 540.0
-margin_right = 960.0
-margin_bottom = 540.0

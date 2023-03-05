@@ -1,5 +1,4 @@
 extends Node2D
-
 export(PackedScene) var card_scene
 
 func _ready():
