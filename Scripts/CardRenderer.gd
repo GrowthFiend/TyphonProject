@@ -27,12 +27,12 @@ func par_to_resource(strength, suit):
 	var converted_suit
 	
 	if not strength in range(2, 15):
-		return false
+		return ""
 	elif strength in strength_names:
 		converted_strength = strength_names[strength]
 		
 	if not suit in suit_names:
-		return false
+		return ""
 	else:
 		converted_suit = suit_names[suit]
 	
@@ -42,5 +42,5 @@ func par_to_resource(strength, suit):
 		return image_full_path
 	else:
 		print("Image was not found: ", image_full_path)
-		return false
+		return ""
 
