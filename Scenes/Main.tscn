@@ -7,6 +7,8 @@
 [node name="Background" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 rect_clip_content = true
 color = Color( 0.54902, 0.745098, 0.933333, 1 )
 script = ExtResource( 1 )
