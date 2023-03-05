@@ -14,4 +14,4 @@ func add_card(strength: int, suit):
 	card.init(strength, suit)
 	card.position = Vector2(randi() % 1000, randi() % 500)
 	card.rotate(randf() * TAU)
-	add_child(card)	
+	add_child(card)
