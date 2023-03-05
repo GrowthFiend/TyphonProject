@@ -6,5 +6,8 @@ func _ready():
 
 
 func _on_SingleGame_pressed():
-	print("qqq")
 	visible = false
+
+
+func _on_Quit_pressed():
+	get_tree().quit()

@@ -63,3 +63,4 @@ margin_bottom = 361.0
 text = "Quit"
 
 [connection signal="pressed" from="Panel/SingleGame" to="." method="_on_SingleGame_pressed"]
+[connection signal="pressed" from="Panel/Quit" to="." method="_on_Quit_pressed"]
