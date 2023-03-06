@@ -3,10 +3,10 @@ export(PackedScene) var card_scene
 
 func _ready():
 	randomize()
-	add_card(randi() % 13 + 2, randi() % Globals.SUIT.size())
+	add_card(randi() % 13 + 2, randi() % 4)
 
 func _on__TempTimer_timeout():
-	add_card(randi() % 13 + 2, randi() % Globals.SUIT.size())
+	add_card(randi() % 13 + 2, randi() % 4)
 
 func add_card(strength: int, suit):
 	var card = card_scene.instance()
