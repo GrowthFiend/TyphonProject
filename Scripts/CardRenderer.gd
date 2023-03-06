@@ -16,13 +16,13 @@ var strength_names = {
 }
 
 func init(strength, suit):
-	var image_full_path = par_to_resource(strength, suit)
+	var image_full_path = pair_to_resource(strength, suit)
 	if images_folder_path:
 		$BG.texture = load(image_full_path)
 	else:
 		print("Something wrong with %s and %s" % [strength, suit])
 
-func par_to_resource(strength, suit):
+func pair_to_resource(strength, suit):
 	var converted_strength = strength
 	var converted_suit
 	
