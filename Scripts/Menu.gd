@@ -1,12 +1,9 @@
-extends Node2D
+extends CanvasLayer
 
 export(PackedScene) var game_scene
 
 func _ready():
-	set_position(Vector2(get_parent().get_parent().size.x/2, get_parent().get_parent().size.y/2))
-
-
-
+	pass
 
 func _on_SingleGame_pressed():
 	visible = false
