@@ -1,27 +1,26 @@
 extends Sprite
-const images_folder_path = "res://Textures/Cards/Poker/"
 
-
-var suit_names = {
-	Globals.SUIT.HEART: "hearts",
-	Globals.SUIT.DIAMONDS: "diamonds",
-	Globals.SUIT.CROSSES: "clubs",
-	Globals.SUIT.SPADES: "spades",
-}
-
-var strength_names = {
-	11: "jack",
-	12: "queen",
-	13: "king",
-	14: "ace",
-}
+var m_strength
+var m_suit
+var m_image_path
 
 func init(strength, suit):
-	var image_full_path = pair_to_resource(strength, suit)
-	if images_folder_path:
-		texture = load(image_full_path)
+	m_strength = strength
+	m_suit = suit
+	m_image_path = pair_to_resource(strength, suit)
+	if m_image_path:
+		texture = load(m_image_path)
 	else:
 		print("Something wrong with %s and %s" % [strength, suit])
+
+func get_strength():
+	return m_strength
+
+func get_suit():
+	return m_suit
+
+func get_image_path():
+	return m_image_path
 
 func pair_to_resource(strength, suit):
 	var converted_strength = strength
@@ -29,18 +28,18 @@ func pair_to_resource(strength, suit):
 	
 	if not strength in range(2, 15):
 		return ""
-	elif strength in strength_names:
-		converted_strength = strength_names[strength]
+	elif strength in Globals.STRENGTH_NAMES:
+		converted_strength = Globals.STRENGTH_NAMES[strength]
 		
-	if not suit in suit_names:
+	if not suit in Globals.SUIT_NAMES:
 		return ""
 	else:
-		converted_suit = suit_names[suit]
+		converted_suit = Globals.SUIT_NAMES[suit]
 	
-	var image_full_path = images_folder_path + "%s_of_%s.png" % [converted_strength, converted_suit]
+	var m_image_path = Globals.IMAGES_FOLDER_PATH + "%s_of_%s.png" % [converted_strength, converted_suit]
 	
-	if File.new().file_exists(image_full_path):
-		return image_full_path
+	if File.new().file_exists(m_image_path):
+		return m_image_path
 	else:
-		print("Image was not found: ", image_full_path)
+		print("Image was not found: ", m_image_path)
 		return ""
