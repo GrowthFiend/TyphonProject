@@ -16,3 +16,11 @@ position = Vector2( 960, 768 )
 [node name="Player1" parent="." instance=ExtResource( 3 )]
 position = Vector2( 960, 64 )
 pl_id = 1
+
+[node name="WinLabel" type="Label" parent="."]
+visible = false
+margin_left = 792.0
+margin_top = 448.0
+margin_right = 876.0
+margin_bottom = 462.0
+text = "Player X Win!"

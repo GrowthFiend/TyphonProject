@@ -70,3 +70,8 @@ func flip():
 		card.flip()
 	update_cards_positions()
 	return self
+	
+func is_stake_ok():
+	if size() > 1:
+		return m_cards[size()-1].get_strength() >= m_cards[size() - 2].get_strength()
+	else : return true
