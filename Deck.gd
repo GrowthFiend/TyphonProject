@@ -14,9 +14,12 @@ func _ready():
 	pop_front()
 	flip()
 
-func init52(x, y):
+func init(x, y):
 	m_cards.clear()
 	position = Vector2(x, y)
+	
+func init52(x, y):
+	init(x, y)
 	for strength in range(2, 15):
 		for suit in range(0, 4):
 			var card = card_scene.instance()
