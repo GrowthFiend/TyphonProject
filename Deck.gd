@@ -50,6 +50,14 @@ func pop_back():
 	card.queue_free()
 	update_cards_positions()
 
+func push_front(card):
+	m_cards.push_front(card)
+	update_cards_positions()
+	
+func push_back(card):
+	m_cards.push_back(card)
+	update_cards_positions()
+
 #переворачивает колоду целиком, то есть порядок кард инвертируется, а каждая карта переворачивается
 func flip():
 	m_cards.invert()
