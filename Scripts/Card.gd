@@ -30,7 +30,7 @@ func init(strength, suit):
 	m_flipped = false
 	m_image_path = get_image_path()
 	if not m_image_path:
-		print("Something wrong with %s and %s" % [m_strength, m_suit])
+		printerr("Something wrong with %s and %s" % [m_strength, m_suit])
 	render()
 		
 func render():
@@ -38,7 +38,6 @@ func render():
 		texture = load(FACE_DOWN_IMAGE_PATH)
 	else:
 		texture = load(m_image_path)
-		
 
 func flip():
 	m_flipped = not m_flipped
@@ -72,5 +71,5 @@ func get_image_path():
 		if File.new().file_exists(m_image_path):
 			return m_image_path
 		else:
-			print("Image was not found: ", m_image_path)
+			printerr("Image was not found: ", m_image_path)
 			return ""

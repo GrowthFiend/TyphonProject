@@ -6,8 +6,5 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if has_node("Game"):
-			if $Game.get_node("_TempTimer").is_stopped():
-				$Game.get_node("_TempTimer").start()
-			else :
-				$Game.get_node("_TempTimer").stop()
+			get_tree().paused = not get_tree().paused
 			$Menu.visible = not $Menu.visible

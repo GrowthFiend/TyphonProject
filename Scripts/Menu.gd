@@ -7,6 +7,7 @@ func _ready():
 
 func _on_SingleGame_pressed():
 	visible = false
+	get_tree().paused = false
 	if get_parent().has_node("Game"):
 			get_parent().get_node("Game").queue_free()
 			get_parent().remove_child(get_parent().get_node("Game"))

@@ -6,6 +6,9 @@ func _ready():
 
 func _on__TempTimer_timeout():
 	add_card(randi() % 13 + 2, randi() % 4)
+	
+func _process(delta):
+	pass
 
 func add_card(strength: int, suit):
 	var card = card_scene.instance()

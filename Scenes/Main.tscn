@@ -5,6 +5,7 @@
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=3]
 
 [node name="Main" type="Node2D"]
+pause_mode = 2
 script = ExtResource( 3 )
 
 [node name="Background" type="ColorRect" parent="."]
@@ -14,3 +15,4 @@ color = Color( 0.356863, 0.611765, 0.905882, 1 )
 script = ExtResource( 1 )
 
 [node name="Menu" parent="." instance=ExtResource( 2 )]
+pause_mode = 0
