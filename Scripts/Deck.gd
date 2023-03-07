@@ -40,16 +40,20 @@ func update_cards_positions():
 		card.z_index = i
 		i+=1
 
-#пока эти методы просто удаляют верхнюю или нижнюю карту в колоде, нужно раскурить, как передавать ноды между сценами, чтобы функционал был таким каким нужно
+func size():
+	return m_cards.size()
+	
 func pop_front():
 	var card = m_cards.pop_front()
-	card.queue_free()
+	remove_child(card)
 	update_cards_positions()
-#пока эти методы просто удаляют верхнюю или нижнюю карту в колоде, нужно раскурить, как передавать ноды между сценами, чтобы функционал был таким каким нужно
+	return card
+
 func pop_back():
 	var card = m_cards.pop_back()
-	card.queue_free()
+	remove_child(card)
 	update_cards_positions()
+	return card
 
 func push_front(card):
 	m_cards.push_front(card)
