@@ -66,7 +66,7 @@ func get_image_path():
 		else:
 			converted_suit = SUIT_NAMES[m_suit]
 	
-		var m_image_path = IMAGES_FOLDER_PATH + "%s_of_%s.png" % [converted_strength, converted_suit]
+		m_image_path = IMAGES_FOLDER_PATH + "%s_of_%s.png" % [converted_strength, converted_suit]
 	
 		if File.new().file_exists(m_image_path):
 			return m_image_path
