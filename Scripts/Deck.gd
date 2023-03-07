@@ -8,18 +8,14 @@ const RENDER_STEP = Vector2(2, 2) #смещение в пикселях неко
 var m_cards = []
 
 func _ready():
-	init52(50, 75)
-	shuffle()
-	pop_back()
-	pop_front()
-	flip()
+	pass
 
-func init(x, y):
+func init():
 	m_cards.clear()
-	position = Vector2(x, y)
+	return self
 	
-func init52(x, y):
-	init(x, y)
+func init52():
+	init()
 	for strength in range(2, 15):
 		for suit in range(0, 4):
 			var card = card_scene.instance()
@@ -27,10 +23,12 @@ func init52(x, y):
 			card.position = position_by_num(strength*4+suit)
 			m_cards.append(card)
 			add_child(card)
+	return self
 
 func shuffle():
 	m_cards.shuffle()
 	update_cards_positions()
+	return self
 
 func position_by_num(number):
 	return Vector2(position.x + RENDER_STEP.x*round(CARD_STEP.x*(number)/RENDER_STEP.x),position.y + RENDER_STEP.y*round(CARD_STEP.y*(number)/RENDER_STEP.y))
@@ -67,3 +65,4 @@ func flip():
 	for card in m_cards:
 		card.flip()
 	update_cards_positions()
+	return self
