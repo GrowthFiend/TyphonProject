@@ -10,6 +10,9 @@ func _on__TempTimer_timeout():
 func add_card(strength: int, suit):
 	var card = card_scene.instance()
 	card.init(strength, suit)
+	card.flip()
+	if strength == 5:
+		card.flip()
 	card.position = Vector2(randi() % 1920, randi() % 1080)
 	card.rotate(randf() * TAU)
 	add_child(card)

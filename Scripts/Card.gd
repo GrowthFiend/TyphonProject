@@ -3,6 +3,7 @@ extends Sprite
 enum SUIT {HEART, DIAMONDS, CROSSES, SPADES}
 
 const IMAGES_FOLDER_PATH = "res://Textures/Cards/Poker/"
+const FACE_DOWN_IMAGE_PATH = IMAGES_FOLDER_PATH + "face_down.png"
 
 const SUIT_NAMES = {
 	SUIT.HEART: "hearts",
@@ -21,15 +22,27 @@ const STRENGTH_NAMES = {
 var m_strength
 var m_suit
 var m_image_path
+var m_flipped
 
 func init(strength, suit):
 	m_strength = strength
 	m_suit = suit
+	m_flipped = false
 	m_image_path = get_image_path()
-	if m_image_path:
-		texture = load(m_image_path)
-	else:
+	if not m_image_path:
 		print("Something wrong with %s and %s" % [m_strength, m_suit])
+	render()
+		
+func render():
+	if m_flipped:
+		texture = load(FACE_DOWN_IMAGE_PATH)
+	else:
+		texture = load(m_image_path)
+		
+
+func flip():
+	m_flipped = not m_flipped
+	render()
 
 func get_strength():
 	return m_strength
