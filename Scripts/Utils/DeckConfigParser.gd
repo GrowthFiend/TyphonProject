@@ -1,6 +1,13 @@
 extends Node
 
 var yaml = preload("res://addons/godot-yaml/gdyaml.gdns").new()
+
+# Эта регулярка ищет одно из двух
+# A) rank * suit (знак умножения между словами),
+# Б) deck (без знака умножить)
+# И определят знак перед этой конструкцией, чтобы дальше "сложить" или "вычесть"
+const DECK_FINDER = "(^|(?<sign>\\+|\\-))\\s*(:?(?<rank>\\w+)\\s*\\*\\s*(?<suit>\\w+)|(?<deck>\\w*))"
+
 var _cache = {}
 var _config
 
@@ -15,7 +22,7 @@ func init(config_path):
 		pass
 	f.close()
 	
-# пока проверка всегда проходит
+# Пока проверка всегда проходит, чисто заглушка
 func validate(config):
 	return true
 
@@ -25,13 +32,12 @@ func get_ids(deck_name, i : int = 0):
 		return []
 		
 	if deck_name in _cache:
-		#print("`%s` found in cache" % deck_name)
 		return _cache[deck_name]
 		
 	var deck_params = _config["deck"][deck_name]
 	
 	var re_deck = RegEx.new()
-	re_deck.compile("(^|(?<sign>\\+|\\-))\\s*(:?(?<rank>\\w+)\\s*\\*\\s*(?<suit>\\w+)|(?<deck>\\w*))")
+	re_deck.compile(DECK_FINDER)
 	var card_ids = []
 	for m in re_deck.search_all(deck_params):
 		var working_ar = []
@@ -51,6 +57,9 @@ func get_ids(deck_name, i : int = 0):
 	_cache[deck_name] = card_ids
 	return card_ids
 
+# Вообще эти две функции (особенно первая элитная) не особенно нужны, 
+# а особенно тут, но сделал так для наглядности и единобразия
+# В принципе, весь их код можно скопировать выше, а функии удалить
 func array_adding(ar1, ar2):
 	return ar1 + ar2
 	

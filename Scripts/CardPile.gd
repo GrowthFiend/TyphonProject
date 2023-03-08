@@ -8,10 +8,19 @@ var _cards = []
 func populate(card_ids):
 	for id in card_ids:
 		var card = card_scene.instance()
-		card.init(id)
+		card.set_id(id)
 		card = before_add_card(card)
 		card = add_card(card)
 		after_card_add(card)
+	return self
+	
+
+func clear():
+	for card in _cards:
+		card.queue_free()
+
+	_cards.clear()
+	return self
 
 func get_all_card_ids():
 	var ids = []
