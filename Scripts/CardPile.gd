@@ -14,7 +14,7 @@ func populate(card_ids):
 		after_card_add(card)
 	return self
 	
-		
+
 func clear():
 	for card in _cards:
 		card.queue_free()

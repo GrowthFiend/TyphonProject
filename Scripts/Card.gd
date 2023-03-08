@@ -4,6 +4,7 @@ extends Area2D
 
 export var rank : String setget set_rank, get_rank
 export var suit : String setget set_suit, get_suit
+export var style : String setget set_style, get_style
 
 func _ready():
 	update_view()
@@ -13,9 +14,8 @@ func update_view():
 		return
 
 	if has_node("CardView"):
-		$CardView.set_id(rank, suit)
-	else: 
-		print('not ready')
+		$CardView.set_id(rank, suit, false)
+		$CardView.style = style
 
 func set_id(id):
 	rank = str(id[0])
@@ -38,3 +38,11 @@ func set_suit(s):
 	
 func get_suit():
 	return suit
+
+func set_style(s):
+	style = s
+	update_view()
+
+func get_style():
+	return style
+
