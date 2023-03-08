@@ -6,7 +6,7 @@ var parser setget , get_parser
 
 # Вот эти 3 экспорта ниже потом должны браться из конфига или еще как-то передаваться сюда
 # Сейчас это просто для демонстрации
-export(String, FILE, "*.yaml") var config_file = "res://Config/DeckPresets/TestDeck.yaml"
+export(String, FILE, "*.yaml") var config_file = "res://Config/DeckPresets/StandardDeck.yaml"
 export(String,
 	"full",
 	"full_with_jockers",
@@ -26,6 +26,8 @@ export(String,
 
 func _ready():
 	get_parser()
+	print(deck_name)
+	print(parser.get_ids(deck_name))
 	clear().populate(parser.get_ids(deck_name))
 	
 func draw_in_lines():
@@ -57,17 +59,12 @@ func set_style(s):
 
 func get_style():
 	return style
-extends Node2D
-
-export(PackedScene) var card_scene
 
 const CARD_STEP = Vector2(0.2, 0.2) #логическое смещение в пикселях каждой последующей карты относительно предыдущей
 const RENDER_STEP = Vector2(2, 2) #смещение в пикселях некоторой группы карт относительно предыдущей группы, для того, чтобы при рендере колоды ее края выглядели красиво
 
 var m_cards = []
 
-func _ready():
-	pass
 
 func init():
 	m_cards.clear()
@@ -90,6 +87,7 @@ func shuffle():
 	return self
 
 func position_by_num(number):
+	var position = Vector2(100,100)
 	return Vector2(position.x + RENDER_STEP.x*round(CARD_STEP.x*(number)/RENDER_STEP.x),position.y + RENDER_STEP.y*round(CARD_STEP.y*(number)/RENDER_STEP.y))
 
 func update_cards_positions():

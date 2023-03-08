@@ -33,7 +33,7 @@ func get_ids(deck_name, i : int = 0):
 		
 	if deck_name in _cache:
 		return _cache[deck_name]
-		
+	
 	var deck_params = _config["deck"][deck_name]
 	
 	var re_deck = RegEx.new()
