@@ -9,7 +9,7 @@ script = ExtResource( 1 )
 [node name="Deck__main" parent="." instance=ExtResource( 2 )]
 position = Vector2( 154, 62 )
 config_file = "res://Config/DeckPresets/StandardCards.yaml"
-use_deck = "with_images"
+deck_name = "double"
 
 [node name="_TempTimer" type="Timer" parent="."]
 wait_time = 2.0

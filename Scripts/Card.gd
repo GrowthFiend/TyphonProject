@@ -1,14 +1,40 @@
+tool
+
 extends Area2D
 
-var _rank
-var _suit
+export var rank : String setget set_rank, get_rank
+export var suit : String setget set_suit, get_suit
 
 func _ready():
-	$CardView.init(_rank, _suit)
+	update_view()
+	
+func update_view():
+	if not rank or not suit:
+		return
 
-func init(id):
-	_rank = id[0]
-	_suit = id[1]
+	if has_node("CardView"):
+		$CardView.set_id(rank, suit)
+	else: 
+		print('not ready')
+
+func set_id(id):
+	rank = str(id[0])
+	suit = str(id[1])
+	update_view()
 	
 func get_id():
-	return [_rank, _suit]
+	return [rank, suit]
+
+func set_rank(r):
+	update_view()
+	rank = str(r)
+	
+func get_rank():
+	return rank
+	
+func set_suit(s):
+	update_view()
+	suit = str(s)
+	
+func get_suit():
+	return suit
