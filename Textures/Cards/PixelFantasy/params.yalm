@@ -1,9 +1,0 @@
-pattern: card-$suit-$rank.png
-
-ranks:
-  ace: 1
-  jack: 11
-  queen: 12
-  king: 13
-
-author: cazwolf

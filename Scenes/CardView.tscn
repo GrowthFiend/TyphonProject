@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/CardView.gd" type="Script" id=1]
-[ext_resource path="res://Textures/Cards/FrenchSuited/3_of_clubs.png" type="Texture" id=2]
+[ext_resource path="res://Textures/Cards/FrenchSuited/3_of_clubs.png" type="Texture2D" id=2]
 
 [node name="CardRenderer" type="Control"]
 anchor_right = 1.0

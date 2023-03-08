@@ -1,13 +1,13 @@
 extends Node
 
-export(PackedScene) var card_scene
+@export var card_scene: PackedScene
 var Card = preload("res://Scripts/Card.gd")
 
 var _cards = []
 
 func populate(card_ids):
 	for id in card_ids:
-		var card = card_scene.instance()
+		var card = card_scene.instantiate()
 		card.set_id(id)
 		card = before_add_card(card)
 		card = add_card(card)

@@ -1,13 +1,13 @@
-tool
+@tool
 
 extends "res://Scripts/CardPile.gd"
 var Deck_config_parser = preload("res://Scripts/Utils/DeckConfigParser.gd")
-var parser setget , get_parser
+var parser : get = get_parser
 
 # Вот эти 3 экспорта ниже потом должны браться из конфига или еще как-то передаваться сюда
 # Сейчас это просто для демонстрации
-export(String, FILE, "*.yaml") var config_file = "res://Config/DeckPresets/StandardDeck.yaml"
-export(String,
+@export var config_file = "res://Config/DeckPresets/StandardDeck.yaml" # (String, FILE, "*.yaml")
+@export(String,
 	"full",
 	"full_with_jockers",
 	"small", 
@@ -17,12 +17,12 @@ export(String,
 	"spades",
 	"no_spades",
 	"with_images"
-) var deck_name = "reds" setget set_deck
-export(String, 
+) var deck_name = "reds" : set = set_deck
+@export(String, 
 	"FrenchSuited",
 	 "zxyonitch",
 	 "PixelFantasy"
-) var style = "zxyonitch" setget set_style, get_style
+) var style = "zxyonitch" : get = get_style, set = set_style
 
 func _ready():
 	get_parser()
@@ -74,7 +74,7 @@ func init52():
 	init()
 	for strength in range(2, 15):
 		for suit in range(0, 4):
-			var card = card_scene.instance()
+			var card = card_scene.instantiate()
 			card.init(strength, suit)
 			card.position = position_by_num(strength*4+suit)
 			m_cards.append(card)

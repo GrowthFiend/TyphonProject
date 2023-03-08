@@ -1,10 +1,10 @@
-tool
+@tool
 
 extends Area2D
 
-export var rank : String setget set_rank, get_rank
-export var suit : String setget set_suit, get_suit
-export var style : String setget set_style, get_style
+@export var rank : String : get = get_rank, set = set_rank
+@export var suit : String : get = get_suit, set = set_suit
+@export var style : String : get = get_style, set = set_style
 
 func _ready():
 	update_view()

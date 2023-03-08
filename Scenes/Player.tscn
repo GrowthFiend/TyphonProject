@@ -11,8 +11,8 @@ position = Vector2( 64, 64 )
 
 [node name="Turn" type="Button" parent="."]
 visible = false
-margin_right = 12.0
-margin_bottom = 20.0
+offset_right = 12.0
+offset_bottom = 20.0
 text = "Turn"
 
 [connection signal="pressed" from="Turn" to="." method="_on_Turn_pressed"]
