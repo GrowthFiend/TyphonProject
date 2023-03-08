@@ -1,3 +1,0 @@
-extends Node
-
-enum SUIT {HEART, DIAMONDS, CROSSES, SPADES}
