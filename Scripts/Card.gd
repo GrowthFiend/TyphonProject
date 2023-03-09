@@ -10,7 +10,7 @@ func _ready():
 	update_view()
 	
 func update_view():
-	if not rank or not suit:
+	if rank.is_empty() or suit.is_empty():
 		return
 
 	if has_node("CardView"):
