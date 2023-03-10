@@ -1,24 +1,25 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://4qn1c6ououqj"]
 
-[ext_resource path="res://Scripts/Card.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/CardView.tscn" type="PackedScene" id=2]
+[ext_resource type="Script" path="res://Scripts/Card.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://n671l8qb0gw2" path="res://Scenes/CardView.tscn" id="2"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 62, 90 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(124, 180)
 
 [node name="Card" type="Area2D"]
-script = ExtResource( 1 )
-rank = "7"
+script = ExtResource("1")
+rank = "3"
 suit = "hearts"
-style = "PixelFantasy"
+style = "FrenchSuited"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 62, 90 )
-shape = SubResource( 1 )
+position = Vector2(62, 90)
+shape = SubResource("1")
 
-[node name="CardView" parent="." instance=ExtResource( 2 )]
-margin_right = 125.0
-margin_bottom = 181.0
-rank = "7"
+[node name="CardView" parent="." instance=ExtResource("2")]
+offset_right = 125.0
+offset_bottom = 181.0
+grow_horizontal = 2
+grow_vertical = 2
+rank = "3"
 suit = "hearts"
-style = "PixelFantasy"

@@ -1,6 +1,6 @@
-extends Node
+class_name DeckConfigParser
 
-var yaml = preload("res://addons/godot-yaml/gdyaml.gdns").new()
+extends Node
 
 # Эта регулярка ищет одно из двух
 # A) rank * suit (знак умножения между словами),
@@ -9,18 +9,48 @@ var yaml = preload("res://addons/godot-yaml/gdyaml.gdns").new()
 const DECK_FINDER = "(^|(?<sign>\\+|\\-))\\s*(:?(?<rank>\\w+)\\s*\\*\\s*(?<suit>\\w+)|(?<deck>\\w*))"
 
 var _cache = {}
-var _config
+var _config = {
+	"ranks": {},
+	"suits": {},
+	"decks": {},
+}
 
 func init(config_path):
-	var f = File.new()
-	f.open(config_path, File.READ)
-	var c = f.get_as_text()
-	if validate(c):
-		_config = yaml.parse(c).result
-	else:
-		# что-то не так с колодой, нужно как-то сообщить об этом
-		pass
-	f.close()
+	if not UsefullFunctions.file_exists(config_path):
+		print("Could't find a config `%s`" % config_path)
+		return
+	
+	var cf = ConfigFile.new()
+	var err = cf.load(config_path)
+	# 43 - ERR_PARSE_ERROR
+	if err != OK:
+		print("ConfigFile.load erro %s" % err)
+		return
+
+	for section in _config:
+		for key in cf.get_section_keys(section):
+			var str_value = str(cf.get_value(section, key))
+			if section == "decks":
+				_config[section][key] = str_value
+			else:
+				var ar_value = []
+				# Вот эта вся лабуда нужна, чтобы из 2..10 сделать массив 
+				# [2, 3, 4, 5, 6, 7, 8, 9, 10]
+				# Отрицательные тоже прокатаят, например -3..1 станет
+				# [-3, -2, -1, 0, 1]
+				# Мб перенести это куда-нибудь
+				var re = RegEx.new()
+				re.compile("(\\-?\\d+)\\.\\.(\\d+)")
+				for v in str_value.split(" "):
+					var m = re.search(v)
+					if m:
+						for i in range(int(m.get_string(1)), int(m.get_string(2)) + 1):
+							ar_value.append(i)
+					else:
+						ar_value.append(v)
+					
+				_config[section][key] = ar_value
+
 	
 # Пока проверка всегда проходит, чисто заглушка
 func validate(config):
@@ -33,8 +63,8 @@ func get_ids(deck_name, i : int = 0):
 		
 	if deck_name in _cache:
 		return _cache[deck_name]
-		
-	var deck_params = _config["deck"][deck_name]
+	
+	var deck_params = _config["decks"][deck_name]
 	
 	var re_deck = RegEx.new()
 	re_deck.compile(DECK_FINDER)
