@@ -1,4 +1,4 @@
-extends Sprite
+extends Sprite2D
 
 enum SUIT {HEART, DIAMONDS, CROSSES, SPADES}
 
@@ -21,7 +21,7 @@ const STRENGTH_NAMES = {
 
 var m_strength
 var m_suit
-var m_image_path
+var m_image_path: String
 var m_flipped
 
 func init(strength, suit):
@@ -29,7 +29,7 @@ func init(strength, suit):
 	m_suit = suit
 	m_flipped = false
 	m_image_path = get_image_path()
-	if not m_image_path:
+	if m_image_path.is_empty():
 		printerr("Something wrong with %s and %s" % [m_strength, m_suit])
 	render()
 		
@@ -50,7 +50,7 @@ func get_suit():
 	return m_suit
 
 func get_image_path():
-	if m_image_path:
+	if not m_image_path.is_empty():
 		return m_image_path
 	else:
 		var converted_strength = m_strength
@@ -67,8 +67,8 @@ func get_image_path():
 			converted_suit = SUIT_NAMES[m_suit]
 	
 		m_image_path = IMAGES_FOLDER_PATH + "%s_of_%s.png" % [converted_strength, converted_suit]
-	
-		if File.new().file_exists(m_image_path):
+		
+		if FileAccess.file_exists(m_image_path):
 			return m_image_path
 		else:
 			printerr("Image was not found: ", m_image_path)
