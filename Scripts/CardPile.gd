@@ -1,5 +1,4 @@
 class_name CardPile
-
 extends Node
 
 @export var card_scene: PackedScene
@@ -14,7 +13,6 @@ func populate(card_ids):
 		card = add_card(card)
 		after_card_add(card)
 	return self
-	
 
 func clear():
 	for card in _cards:
@@ -32,7 +30,7 @@ func get_all_card_ids():
 func before_add_card(card):
 	return card
 	
-func add_card(card): # Нужно как-то указать, что принимать только класс Card
+func add_card(card : Card):
 	_cards.append(card)
 	add_child(card)
 	return card

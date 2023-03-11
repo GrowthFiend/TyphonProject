@@ -8,18 +8,19 @@ size = Vector2(124, 180)
 
 [node name="Card" type="Area2D"]
 script = ExtResource("1")
-rank = "3"
-suit = "hearts"
-style = "FrenchSuited"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(62, 90)
 shape = SubResource("1")
 
 [node name="CardView" parent="." instance=ExtResource("2")]
-offset_right = 125.0
-offset_bottom = 181.0
-grow_horizontal = 2
-grow_vertical = 2
-rank = "3"
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 124.0
+offset_bottom = 180.0
+grow_horizontal = 1
+grow_vertical = 1
+rank = "5"
 suit = "hearts"
+style = "FrenchSuited"

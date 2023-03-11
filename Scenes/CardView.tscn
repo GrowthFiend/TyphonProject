@@ -1,27 +1,34 @@
 [gd_scene load_steps=3 format=3 uid="uid://n671l8qb0gw2"]
 
 [ext_resource type="Script" path="res://Scripts/CardView.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://b8toxq3fx0v6d" path="res://Textures/Cards/FrenchSuited/3_of_clubs.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cn8dmd3w6vm8v" path="res://Textures/Cards/FrenchSuited/3_of_clubs.png" id="2"]
 
-[node name="CardRenderer" type="Control"]
+[node name="CardView" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1")
-style = "FrenchSuited"
 
-[node name="BG" type="TextureRect" parent="."]
+[node name="Face" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Face_BG" type="TextureRect" parent="Face"]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource("2")
 expand_mode = 1
 
-[node name="Text" type="TextEdit" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
+[node name="Text" type="TextEdit" parent="Face"]
+layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2

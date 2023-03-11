@@ -1,5 +1,6 @@
 @tool
 
+class_name Card
 extends Area2D
 
 @export var rank : String : get = get_rank, set = set_rank
@@ -10,30 +11,25 @@ func _ready():
 	update_view()
 	
 func update_view():
-	if rank == "" or suit == "":
-		return
-
 	if has_node("CardView"):
-		$CardView.set_id(rank, suit, false)
+		$CardView.set_id(rank, suit)
 		$CardView.style = style
+		$CardView.update_view()
 
 func set_id(id):
 	rank = str(id[0])
 	suit = str(id[1])
-	update_view()
 	
 func get_id():
 	return [rank, suit]
 
 func set_rank(r):
-	update_view()
 	rank = str(r)
 	
 func get_rank():
 	return rank
 	
 func set_suit(s):
-	update_view()
 	suit = str(s)
 	
 func get_suit():
@@ -41,7 +37,6 @@ func get_suit():
 
 func set_style(s):
 	style = s
-	update_view()
 
 func get_style():
 	return style
