@@ -8,7 +8,6 @@ extends Node
 # И определят знак перед этой конструкцией, чтобы дальше "сложить" или "вычесть"
 const DECK_FINDER = "(^|(?<sign>\\+|\\-))\\s*(:?(?<rank>\\w+)\\s*\\*\\s*(?<suit>\\w+)|(?<deck>\\w*))"
 
-var _cache = {}
 var _config = {
 	"ranks": {},
 	"suits": {},
@@ -16,7 +15,11 @@ var _config = {
 }
 
 func init(config_path):
-	if not FileAccess.file_exists(config_path):
+	if config_path == "":
+		print("Empty config path")
+		return
+	
+	if not UsefullFunctions.file_exists(config_path):
 		print("Could't find a config `%s`" % config_path)
 		return
 	
@@ -51,18 +54,16 @@ func init(config_path):
 					
 				_config[section][key] = ar_value
 
-	
-# Пока проверка всегда проходит, чисто заглушка
-func validate(config):
-	return true
-
 func get_ids(deck_name, i : int = 0):
 	if i > 10:
 		print("Infinitive loop yoba")
 		return []
 		
-	if deck_name in _cache:
-		return _cache[deck_name]
+		
+	var cache_key = "DeckConfigParser_" + deck_name
+	# кеш работает только в игре. как и все автолоады
+	if not Engine.is_editor_hint() and Cache.has(cache_key):
+		return Cache.retrieve(cache_key)
 	
 	if not _config["decks"].has(deck_name):
 		return []
@@ -87,7 +88,9 @@ func get_ids(deck_name, i : int = 0):
 		else:
 			card_ids = array_adding(card_ids, working_ar)
 			
-	_cache[deck_name] = card_ids
+	if not Engine.is_editor_hint():
+		Cache.add(cache_key, card_ids)
+	
 	return card_ids
 
 # Вообще эти две функции (особенно первая элитная) не особенно нужны, 
