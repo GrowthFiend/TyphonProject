@@ -2,7 +2,6 @@ extends Node2D
 @export var pl_id = 0
 
 func _ready():
-#	$Hand.init()
 	pass
 
 
@@ -13,6 +12,7 @@ func _on_Turn_pressed():
 	get_parent().get_node("Table/Stake").push_back(card)
 	$Turn.visible = false
 	if not is_stake_ok():
+		await get_tree().create_timer(1).timeout
 		take_stake()
 	else : check_win()
 	get_parent().change_turn()
@@ -27,6 +27,7 @@ func take_stake():
 		card.flip()
 		$Hand.push_front(card)
 		stake_size -= 1
+		await get_tree().create_timer(0.2).timeout
 
 func check_win():
 	if $Hand.size() == 0:

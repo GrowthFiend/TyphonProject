@@ -20,6 +20,7 @@ func hand_out_cards():
 		var current_player = "Player%s" % turn
 		get_node(current_player).get_node("Hand").push_back(card)
 		i -= 1
+		await get_tree().create_timer(0.05).timeout
 
 func play():
 	var current_player = "Player%s" % m_turn

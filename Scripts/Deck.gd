@@ -2,7 +2,7 @@
 
 extends CardPile
 var parser : get = get_parser
-var speed = 10
+var speed = 3
 
 # Вот эти 3 экспорта ниже потом должны браться из конфига или еще как-то передаваться сюда
 # Сейчас это просто для демонстрации
@@ -11,7 +11,11 @@ var speed = 10
 @export_enum("FrenchSuited", "zxyonitch", "PixelFantasy") var style : get = get_style, set = set_style
 
 func _process(zella):
-	update_cards_positions(zella)
+	var i = 0
+	for card in _cards:
+		card.position = lerp(card.position, position_by_num(i), speed*zella)
+		card.z_index = i+z_index
+		i+=1
 
 func init(params):
 	if params.has("name") and params["name"]:
@@ -75,14 +79,6 @@ func shuffle():
 func position_by_num(number):
 	var position = get_parent().position - Vector2(100, 350)
 	return Vector2(position.x + RENDER_STEP.x*round(CARD_STEP.x*(number)/RENDER_STEP.x),position.y + RENDER_STEP.y*round(CARD_STEP.y*(number)/RENDER_STEP.y))
-
-func update_cards_positions(zella):
-	var i = 0
-	for card in _cards:
-		card.position = lerp(card.position, position_by_num(i), speed*zella)
-		card.z_index = i
-		i+=1
-	return self
 
 func size():
 	return _cards.size()

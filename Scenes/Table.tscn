@@ -8,3 +8,4 @@ position = Vector2(832, 512)
 script = ExtResource("1")
 
 [node name="Stake" parent="." instance=ExtResource("2")]
+z_index = 100

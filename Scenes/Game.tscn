@@ -28,4 +28,5 @@ offset_bottom = 462.0
 text = "Player X Win!"
 
 [node name="Deck" parent="." instance=ExtResource("4_xvqxm")]
+z_index = 100
 position = Vector2(161, 359)
