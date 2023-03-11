@@ -16,7 +16,7 @@ var _config = {
 }
 
 func init(config_path):
-	if not UsefullFunctions.file_exists(config_path):
+	if not FileAccess.file_exists(config_path):
 		print("Could't find a config `%s`" % config_path)
 		return
 	

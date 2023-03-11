@@ -31,6 +31,7 @@ func set_deck(new_deck):
 func get_parser():
 	if parser == null:
 		parser = DeckConfigParser.new()
+		config_file = "res://StandardCards.yaml" # для теста УДАЛИТЬ
 		parser.init(config_file)
 
 	return parser

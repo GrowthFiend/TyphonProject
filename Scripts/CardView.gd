@@ -75,7 +75,7 @@ func update_view():
 		return
 	
 	var image_full_path = get_full_path()
-	if image_full_path and UsefullFunctions.file_exists(image_full_path):
+	if not image_full_path.is_empty() and FileAccess.file_exists(image_full_path):
 		$BG.texture = load(image_full_path)
 		$Text.hide()
 		$BG.show()
