@@ -1,8 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://gkyr150hplf0"]
+[gd_scene load_steps=4 format=3 uid="uid://im0lghhc3x3j"]
 
 [ext_resource type="Script" path="res://Scripts/Deck.gd" id="1"]
-[ext_resource type="PackedScene" uid="uid://7s66loqc1k58" path="res://Scenes/Card.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://4qn1c6ououqj" path="res://Scenes/Card.tscn" id="2"]
 
-[node name="Deck" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k61n2"]
+
+[node name="Deck" type="Area2D"]
 script = ExtResource("1")
+config_file = "res://Config/DeckPresets/StandardCards.ini"
 card_scene = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k61n2")
+disabled = true

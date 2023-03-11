@@ -1,18 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://byl40k2f1vbaa"]
+[gd_scene load_steps=3 format=3 uid="uid://cavxkedp4tvuw"]
 
-[ext_resource type="PackedScene" uid="uid://gkyr150hplf0" path="res://Scenes/Deck.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://im0lghhc3x3j" path="res://Scenes/Deck.tscn" id="1"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="2"]
 
 [node name="Player" type="Node2D"]
 script = ExtResource("2")
 
 [node name="Hand" parent="." instance=ExtResource("1")]
-position = Vector2(64, 64)
 
 [node name="Turn" type="Button" parent="."]
 visible = false
-offset_right = 12.0
-offset_bottom = 20.0
+offset_left = 104.0
+offset_top = -32.0
+offset_right = 149.0
+offset_bottom = -1.0
 text = "Turn"
 
 [connection signal="pressed" from="Turn" to="." method="_on_Turn_pressed"]
