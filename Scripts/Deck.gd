@@ -44,15 +44,11 @@ func set_style(s):
 func get_style():
 	return style
 
-@export var card_scene: PackedScene
-
 const CARD_STEP = Vector2(0.2, 0.2) #логическое смещение в пикселях каждой последующей карты относительно предыдущей
 const RENDER_STEP = Vector2(2, 2) #смещение в пикселях некоторой группы карт относительно предыдущей группы, для того, чтобы при рендере колоды ее края выглядели красиво
 
 var m_cards = []
 
-func _ready():
-	pass
 
 func init():
 	m_cards.clear()
@@ -75,7 +71,8 @@ func shuffle():
 	return self
 
 func position_by_num(number):
-	return Vector2(position.x + RENDER_STEP.x*round(CARD_STEP.x*(number)/RENDER_STEP.x),position.y + RENDER_STEP.y*round(CARD_STEP.y*(number)/RENDER_STEP.y))
+#	return Vector2(position.x + RENDER_STEP.x*round(CARD_STEP.x*(number)/RENDER_STEP.x),position.y + RENDER_STEP.y*round(CARD_STEP.y*(number)/RENDER_STEP.y))
+	pass
 
 func update_cards_positions():
 	var i = 0
