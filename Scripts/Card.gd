@@ -6,13 +6,14 @@ extends Area2D
 @export var rank : String : get = get_rank, set = set_rank
 @export var suit : String : get = get_suit, set = set_suit
 @export var style : String : get = get_style, set = set_style
+@export var is_open : bool = true
 
 func _ready():
 	update_view()
 	
 func update_view():
 	if has_node("CardView"):
-		$CardView.set_id(rank, suit)
+		$CardView.set_id(rank, suit, is_open)
 		$CardView.style = style
 		$CardView.update_view()
 
@@ -41,3 +42,5 @@ func set_style(s):
 func get_style():
 	return style
 
+func flip():
+	is_open = not is_open

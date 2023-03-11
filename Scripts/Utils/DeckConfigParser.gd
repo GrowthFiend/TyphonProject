@@ -31,6 +31,7 @@ func init(config_path):
 		return
 
 	for section in _config:
+		if not cf.has_section(section): continue
 		for key in cf.get_section_keys(section):
 			var str_value = str(cf.get_value(section, key))
 			if section == "decks":

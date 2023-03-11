@@ -11,9 +11,10 @@ var is_open = true
 const IMG_DIR = "res://Textures/Cards/"
 const PARAMS = "params.ini"
 
-func set_id(new_rank : String, new_suit : String):
+func set_id(new_rank : String, new_suit : String, new_is_open):
 	rank = new_rank
 	suit = new_suit
+	is_open = new_is_open
 
 func get_full_path():
 	if style == "":

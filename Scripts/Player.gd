@@ -2,7 +2,8 @@ extends Node2D
 @export var pl_id = 0
 
 func _ready():
-	$Hand.init()
+#	$Hand.init()
+	pass
 
 
 

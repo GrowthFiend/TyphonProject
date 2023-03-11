@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://n671l8qb0gw2"]
 
 [ext_resource type="Script" path="res://Scripts/CardView.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://cn8dmd3w6vm8v" path="res://Textures/Cards/FrenchSuited/3_of_clubs.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://dqt3cfsmxqa50" path="res://Textures/Cards/FrenchSuited/3_of_clubs.png" id="2"]
 
 [node name="CardView" type="Control"]
 layout_mode = 3
