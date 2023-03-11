@@ -10,8 +10,10 @@ script = ExtResource("2")
 
 [node name="Turn" type="Button" parent="."]
 visible = false
-offset_right = 12.0
-offset_bottom = 20.0
+offset_left = 104.0
+offset_top = -32.0
+offset_right = 149.0
+offset_bottom = -1.0
 text = "Turn"
 
 [connection signal="pressed" from="Turn" to="." method="_on_Turn_pressed"]

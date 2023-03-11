@@ -10,6 +10,7 @@ func _ready():
 		"style": ["FrenchSuited", "PixelFantasy", "zxyonitch"].pick_random(),
 	}).shuffle()
 	hand_out_cards()
+	await get_tree().create_timer(5).timeout
 	play()
 
 func hand_out_cards():
