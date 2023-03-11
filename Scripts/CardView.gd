@@ -83,7 +83,7 @@ func get_grandspring(child, grandspring, ar):
 
 func update_view():
 	var image_full_path = get_full_path()
-	if image_full_path and UsefullFunctions.file_exists(image_full_path):
+	if image_full_path and FileAccess.file_exists(image_full_path):
 		$Face/Face_BG.texture = load(image_full_path)
 		$Face/Text.hide()
 		$Face/Face_BG.show()
