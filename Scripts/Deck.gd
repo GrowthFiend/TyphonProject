@@ -20,6 +20,7 @@ func init(params):
 	
 func before_add_card(card):
 	card.style = style
+	card.is_open = false
 	return card
 	
 func draw_in_lines():
@@ -119,18 +120,10 @@ func is_stake_ok():
 	else : return true
 
 func calculate_sthength(card):
-	match card.get_rank():
-		"2": return 2
-		"3": return 3
-		"4": return 4
-		"5": return 5
-		"6": return 6
-		"7": return 7
-		"8": return 8
-		"9": return 9
-		"10": return 10
+	match card.rank:
 		"jack": return 11
 		"queen": return 12
 		"king": return 13
 		"ace": return 14
 		"joker": return 15
+		_: return int(card.rank)

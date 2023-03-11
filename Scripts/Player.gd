@@ -5,9 +5,14 @@ func _ready():
 #	$Hand.init()
 	pass
 
-
+func _process(delta):
+	if Input.is_action_just_pressed("turn_next_card"):
+		turn_card()
 
 func _on_Turn_pressed():
+	turn_card()
+	
+func turn_card():
 	var card = $Hand.pop_back()
 	card.flip()
 	get_parent().get_node("Table/Stake").push_back(card)
