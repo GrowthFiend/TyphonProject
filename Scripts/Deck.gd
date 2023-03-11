@@ -78,8 +78,8 @@ func shuffle():
 	return self
 
 func position_by_num(number):
-	var position = get_parent().position - Vector2(100, 350)
-	return Vector2(position.x + RENDER_STEP.x*round(CARD_STEP.x*(number)/RENDER_STEP.x),position.y + RENDER_STEP.y*round(CARD_STEP.y*(number)/RENDER_STEP.y))
+	var pos = get_parent().position - Vector2(100, 350)
+	return Vector2(pos.x + RENDER_STEP.x*round(CARD_STEP.x*(number)/RENDER_STEP.x),pos.y + RENDER_STEP.y*round(CARD_STEP.y*(number)/RENDER_STEP.y))
 
 func size():
 	return _cards.size()

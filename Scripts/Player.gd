@@ -4,10 +4,6 @@ extends Node2D
 func _ready():
 	pass
 
-func _process(delta):
-	if Input.is_action_just_pressed("turn_next_card"):
-		turn_card()
-
 func _on_Turn_pressed():
 	turn_card()
 	
