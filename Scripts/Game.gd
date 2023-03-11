@@ -5,17 +5,20 @@ var m_turn = 0
 
 func _ready():
 	randomize()
+	$Deck.init({
+		"name": "full",
+		"style": "FrenchSuited",
+	}).shuffle()
 	hand_out_cards()
 	play()
 
 func hand_out_cards():
-	var i = $Table/Deck.size()
+	var i = $Deck.size()
 	while i > 0:
-		var card = $Table/Deck.pop_back()
+		var card = $Deck.pop_back()
 		var turn = i%PLAYERS_COUNT
 		var current_player = "Player%s" % turn
 		get_node(current_player).get_node("Hand").push_back(card)
-		get_node(current_player).get_node("Hand").add_child(card)
 		i -= 1
 
 func play():
