@@ -2,12 +2,20 @@
 
 extends CardPile
 var parser : get = get_parser
+var speed = 3
 
 # Вот эти 3 экспорта ниже потом должны браться из конфига или еще как-то передаваться сюда
 # Сейчас это просто для демонстрации
 @export var config_file : String # (String, FILE, "*.yaml")
 @export_enum("full", "full_with_jockers", "small", "double", "reds", "jokers", "spades", "no_spades", "with_images") var deck_name : set = set_deck
 @export_enum("FrenchSuited", "zxyonitch", "PixelFantasy") var style : get = get_style, set = set_style
+
+func _process(zella):
+	var i = 0
+	for card in _cards:
+		card.position = lerp(card.position, position_by_num(i), speed*zella)
+		card.z_index = i+z_index
+		i+=1
 
 func init(params):
 	if params.has("name") and params["name"]:
@@ -36,7 +44,6 @@ func draw_in_lines():
 func update_deck():
 	if config_file and deck_name and style:
 		clear().populate(parser.get_ids(deck_name))
-		update_cards_positions()
 	return self
 
 func set_deck(new_deck_name : String):
@@ -68,50 +75,34 @@ const RENDER_STEP = Vector2(2, 2) #смещение в пикселях неко
 
 func shuffle():
 	_cards.shuffle()
-	update_cards_positions()
 	return self
 
 func position_by_num(number):
-	var pos = Vector2(0, 0)
-	return Vector2(pos.x + RENDER_STEP.x*round(CARD_STEP.x*(number)/RENDER_STEP.x),pos.y + RENDER_STEP.y*round(CARD_STEP.y*(number)/RENDER_STEP.y))
-
-func update_cards_positions():
-	var i = 0
-	for card in _cards:
-		card.position = position_by_num(i)
-		card.z_index = i
-		i+=1
-	return self
+	var position = get_parent().position - Vector2(100, 350)
+	return Vector2(position.x + RENDER_STEP.x*round(CARD_STEP.x*(number)/RENDER_STEP.x),position.y + RENDER_STEP.y*round(CARD_STEP.y*(number)/RENDER_STEP.y))
 
 func size():
 	return _cards.size()
 	
 func pop_front():
 	var card = _cards.pop_front()
-	remove_child(card)
-	update_cards_positions()
 	return card
 
 func pop_back():
 	var card = _cards.pop_back()
-	remove_child(card)
-	update_cards_positions()
 	return card
 
 func push_front(card):
 	_cards.push_front(card)
-	update_cards_positions()
 	
 func push_back(card):
 	_cards.push_back(card)
-	update_cards_positions()
 
 #переворачивает колоду целиком, то есть порядок кард инвертируется, а каждая карта переворачивается
 func flip():
 	_cards.reverse()
 	for card in _cards:
 		card.flip()
-	update_cards_positions()
 	return self
 	
 func is_stake_ok():

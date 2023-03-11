@@ -1,5 +1,5 @@
 class_name CardPile
-extends Node
+extends Area2D
 
 @export var card_scene: PackedScene
 
