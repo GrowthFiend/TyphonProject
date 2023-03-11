@@ -7,7 +7,7 @@ func _ready():
 	randomize()
 	$Deck.init({
 		"name": "full",
-		"style": "FrenchSuited",
+		"style": ["FrenchSuited", "PixelFantasy", "zxyonitch"].pick_random(),
 	}).shuffle()
 	hand_out_cards()
 	play()
