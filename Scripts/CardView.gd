@@ -1,15 +1,21 @@
 @tool
 extends Control
 
-@export var rank : String : get = get_rank, set = set_rank
-@export var suit : String : get = get_suit, set = set_suit
-@export var style : String : get = get_style, set = set_style
-
-var is_open = true
-
 # @todo Позже нужно брать это из настроек
 const IMG_DIR = "res://Textures/Cards/"
 const PARAMS = "params.ini"
+
+@export var rank : String : get = get_rank, set = set_rank
+@export var suit : String : get = get_suit, set = set_suit
+@export var style : String : get = get_style, set = set_style
+@export var is_open : bool = true : get = get_is_open, set = set_is_open
+
+func _ready():
+	sync_open_status()
+	
+# Hack нужно что-то другое придумать для проверки
+func is_ready():
+	return has_node("Face")
 
 func set_id(new_rank : String, new_suit : String, new_is_open):
 	rank = new_rank
@@ -17,12 +23,17 @@ func set_id(new_rank : String, new_suit : String, new_is_open):
 	is_open = new_is_open
 
 func get_full_path():
+	var full_path = {
+		"front": "",
+		"back": "",
+	}
+	
 	if style == "":
-		return ""
+		return full_path
 		
 	var style_dir = str(IMG_DIR, style, "/")
 	if not DirAccess.dir_exists_absolute(style_dir):
-		return ""
+		return full_path
 	
 	var cache_key = "CardView_" + style + "_" + rank + "_" + suit
 	if not Engine.is_editor_hint() and Cache.has(cache_key):
@@ -31,18 +42,26 @@ func get_full_path():
 	var style_params = get_params(style)
 	if style_params.is_empty() or not style_params.has("params"):
 		print("no style ", style)
-		return ""
+		return full_path
 	
 	if style_params["params"].is_empty():
-		print("Couldn't find namepattern for style `%s`" % style)
-		return ""
+		print("Couldn't find params for style `%s`" % style)
+		return full_path
 		
-	var namepattern = style_params["params"]["namepattern"]
-	var mapped_rank = get_grandspring("ranks", rank, style_params)
-	var mapped_suit = get_grandspring("suits", suit, style_params)
-	var full_path = str(style_dir, namepattern.
-		replace("$rank", mapped_rank).
-		replace("$suit", mapped_suit))
+	var front_full_path = ""
+	if style_params["params"].has("namepattern"):
+		var namepattern = style_params["params"]["namepattern"]
+		var mapped_rank = get_grandspring("ranks", rank, style_params)
+		var mapped_suit = get_grandspring("suits", suit, style_params)
+		front_full_path = str(style_dir, namepattern.
+				replace("$rank", mapped_rank).
+				replace("$suit", mapped_suit))
+				
+	
+	full_path = {
+		"front": front_full_path,
+		"back": str(style_dir, style_params["params"]["back"] if style_params["params"].has("back") else "")
+	}
 	
 	if not Engine.is_editor_hint():
 		Cache.add(cache_key, full_path)
@@ -84,14 +103,24 @@ func get_grandspring(child, grandspring, ar):
 
 func update_view():
 	var image_full_path = get_full_path()
-	if image_full_path and FileAccess.file_exists(image_full_path):
-		$Face/Face_BG.texture = load(image_full_path)
-		$Face/Text.hide()
-		$Face/Face_BG.show()
+	if image_full_path["front"] != "" and FileAccess.file_exists(image_full_path["front"]):
+		$Face/BG.texture = load(image_full_path["front"])
+		$Face/BG.show()
+		$Face/Fallback.hide()
 	else:
-		$Face/Text.text = "%s of %s \n (%s)" % [rank, suit, style]
-		$Face/Text.show()
-		$Face/Face_BG.hide()
+		$Face/Fallback.text = "%s of %s \n (%s)" % [rank, suit, style]
+		$Face/Fallback.show()
+		$Face/BG.hide()
+		
+	if image_full_path["back"] != "" and FileAccess.file_exists(image_full_path["back"]):
+		$Back/BG.texture = load(image_full_path["back"])
+		$Back/BG.show()
+		$Back/Fallback.hide()
+	else:
+		$Back/Fallback.text = "Back \n (%s)" % [style]
+		$Back/Fallback.show()
+		$Back/BG.hide()
+
 
 func set_rank(new_rank : String):
 	if rank != new_rank:
@@ -113,3 +142,22 @@ func set_style(new_style : String):
 
 func get_style():
 	return style
+
+func get_is_open():
+	return is_open
+	
+func set_is_open(new_is_open : bool):
+	if is_open == new_is_open:
+		return
+	is_open = new_is_open
+	sync_open_status()
+		
+func sync_open_status():
+	if not is_ready(): return
+	
+	if is_open:
+		$Face.show()
+		$Back.hide()
+	else: 
+		$Back.show()
+		$Face.hide()

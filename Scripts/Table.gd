@@ -3,7 +3,5 @@ extends Node2D
 func _ready():
 	$Deck.init({
 		"name": "full",
-		"style": "FrenchSuited",
+		"style": ["FrenchSuited", "PixelFantasy", "zxyonitch"].pick_random(),
 	}).shuffle()
-#	$Deck.init52().flip().shuffle()
-#	$Stake.init()
