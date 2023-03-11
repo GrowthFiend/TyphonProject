@@ -17,6 +17,7 @@ position = Vector2(62, 90)
 shape = SubResource("1")
 
 [node name="CardView" parent="." instance=ExtResource("2")]
+visible = false
 offset_right = 125.0
 offset_bottom = 181.0
 rank = "3"
