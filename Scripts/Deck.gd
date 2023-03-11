@@ -1,6 +1,6 @@
 extends Node2D
 
-export(PackedScene) var card_scene
+@export var card_scene: PackedScene
 
 const CARD_STEP = Vector2(0.2, 0.2) #логическое смещение в пикселях каждой последующей карты относительно предыдущей
 const RENDER_STEP = Vector2(2, 2) #смещение в пикселях некоторой группы карт относительно предыдущей группы, для того, чтобы при рендере колоды ее края выглядели красиво
@@ -18,7 +18,7 @@ func init52():
 	init()
 	for strength in range(2, 15):
 		for suit in range(0, 4):
-			var card = card_scene.instance()
+			var card = card_scene.instantiate()
 			card.init(strength, suit)
 			card.position = position_by_num(strength*4+suit)
 			m_cards.append(card)
@@ -65,7 +65,7 @@ func push_back(card):
 
 #переворачивает колоду целиком, то есть порядок кард инвертируется, а каждая карта переворачивается
 func flip():
-	m_cards.invert()
+	m_cards.reverse()
 	for card in m_cards:
 		card.flip()
 	update_cards_positions()
