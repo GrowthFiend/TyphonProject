@@ -1,15 +1,13 @@
-extends Node2D
+extends CanvasLayer
 
 @export var game_scene: PackedScene
 
 func _ready():
-	set_position(Vector2(get_parent().get_parent().size.x/2, get_parent().get_parent().size.y/2))
-
-
-
+	pass
 
 func _on_SingleGame_pressed():
 	visible = false
+	get_tree().paused = false
 	if get_parent().has_node("Game"):
 			get_parent().get_node("Game").queue_free()
 			get_parent().remove_child(get_parent().get_node("Game"))

@@ -1,15 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://5tsn1s8i5cme"]
+[gd_scene load_steps=3 format=3 uid="uid://domxv723ym04x"]
 
 [ext_resource type="Script" path="res://Scripts/Menu.gd" id="1"]
-[ext_resource type="PackedScene" uid="uid://chxnluyapdurk" path="res://Scenes/Game.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://uxakjln3n68v" path="res://Scenes/Game.tscn" id="2"]
 
-[node name="Menu" type="Node2D"]
-z_index = 1
-position = Vector2(479, 267)
+[node name="Menu" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1")
 game_scene = ExtResource("2")
 
 [node name="Panel" type="Panel" parent="."]
+process_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -21,6 +21,7 @@ offset_right = 345.0
 offset_bottom = 203.0
 
 [node name="SingleGame" type="Button" parent="Panel"]
+process_mode = 3
 layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
@@ -31,6 +32,7 @@ offset_bottom = 73.0
 text = "Single Game"
 
 [node name="CreateLobby" type="Button" parent="Panel"]
+process_mode = 3
 layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
@@ -41,6 +43,7 @@ offset_bottom = 145.0
 text = "Create Lobby"
 
 [node name="Connect" type="Button" parent="Panel"]
+process_mode = 3
 layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
@@ -51,6 +54,7 @@ offset_bottom = 217.0
 text = "Connect"
 
 [node name="Options" type="Button" parent="Panel"]
+process_mode = 3
 layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
@@ -61,6 +65,7 @@ offset_bottom = 289.0
 text = "Options"
 
 [node name="Quit" type="Button" parent="Panel"]
+process_mode = 3
 layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
