@@ -8,6 +8,16 @@
 
 config_version=5
 
+_global_script_classes=[ {
+"base": "",
+"class": "GitAPI",
+"language": "NativeScript",
+"path": "res://addons/godot-git-plugin/git_api.gdns"
+} ]
+_global_script_class_icons={
+"GitAPI": ""
+}
+
 [application]
 
 config/name="TyphonProject"
@@ -21,6 +31,11 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/vsync/vsync_mode=0
 window/stretch/mode="canvas_items"
+
+[editor]
+
+version_control_autoload_on_startup=true
+version_control_plugin_name="GitAPI"
 
 [gui]
 
