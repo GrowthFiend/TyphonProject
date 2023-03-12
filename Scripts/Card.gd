@@ -8,8 +8,19 @@ extends Area2D
 @export var style : String : get = get_style, set = set_style
 @export var is_open : bool = true : get = get_is_open, set = set_is_open
 
+var target_position = Vector2(0, 0)
+var target_rotation = 0
+var need_update_target = true
+var speed = 3
+
 func _ready():
 	update_view()
+	
+func _process(delta):
+	if position != target_position:
+		position = lerp(position, target_position, speed*delta)
+	if rotation != target_rotation:
+		rotation = lerp(rotation, target_rotation, speed*delta)
 	
 func update_view():
 	if has_node("CardView"):
@@ -41,6 +52,12 @@ func set_style(s):
 
 func get_style():
 	return style
+	
+func set_target_position(new_pos):
+	target_position = new_pos
+
+func get_target_position():
+	return target_position
 
 func flip():
 	is_open = not is_open

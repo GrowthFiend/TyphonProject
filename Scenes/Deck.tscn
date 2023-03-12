@@ -13,3 +13,8 @@ card_scene = ExtResource("2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_k61n2")
 disabled = true
+
+[node name="Helpful_reference" type="ColorRect" parent="."]
+visible = false
+offset_right = 12.0
+offset_bottom = 277.0
