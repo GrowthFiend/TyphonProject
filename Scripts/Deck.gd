@@ -11,8 +11,8 @@ var parser : get = get_parser
 @export_enum("FrenchSuited", "zxyonitch", "PixelFantasy") var style : get = get_style, set = set_style
 @export_enum("Stake3D", "Fan", "One_on_one", "Roughly") var appearance: get = get_appearance, set = set_appearance
 
-const CARD_STEP = Vector2(0.6, 0.6) #логическое смещение в пикселях каждой последующей карты относительно предыдущей
-const RENDER_STEP = Vector2(3, 3) #смещение в пикселях некоторой группы карт относительно предыдущей группы, для того, чтобы при рендере колоды ее края выглядели красиво
+const STAKE3D_CARD_STEP = Vector2(0.6, 0.6) #логическое смещение в пикселях каждой последующей карты относительно предыдущей
+const STAKE3D_RENDER_STEP = Vector2(3, 3) #смещение в пикселях некоторой группы карт относительно предыдущей группы, для того, чтобы при рендере колоды ее края выглядели красиво
 const FAN_RADIUS = 700
 const FAN_FI_STEP = 2*PI*2/360
 
@@ -29,7 +29,7 @@ func transform_by_num(card, number):
 	match appearance:
 		"Stake3D":
 			card.need_update_target = true
-			target_pos = Vector2(pos.x + RENDER_STEP.x*round(CARD_STEP.x*(number)/RENDER_STEP.x),pos.y + RENDER_STEP.y*round(CARD_STEP.y*(number)/RENDER_STEP.y))
+			target_pos = Vector2(pos.x + STAKE3D_RENDER_STEP.x*round(STAKE3D_CARD_STEP.x*(number)/STAKE3D_RENDER_STEP.x),pos.y + STAKE3D_RENDER_STEP.y*round(STAKE3D_CARD_STEP.y*(number)/STAKE3D_RENDER_STEP.y))
 			target_rot = rot
 		"Fan":
 			card.need_update_target = true
