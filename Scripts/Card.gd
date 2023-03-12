@@ -44,6 +44,12 @@ func get_style():
 
 func flip():
 	is_open = not is_open
+	
+func open():
+	is_open = true
+	
+func close():
+	is_open = false
 
 func get_is_open():
 	return is_open

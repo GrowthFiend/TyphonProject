@@ -2,11 +2,11 @@
 
 extends CardPile
 var parser : get = get_parser
-var speed = 3
+var speed = 70
 
 # Вот эти 3 экспорта ниже потом должны браться из конфига или еще как-то передаваться сюда
 # Сейчас это просто для демонстрации
-@export var config_file : String # (String, FILE, "*.yaml")
+@export var config_file : String
 @export_enum("full", "full_with_jockers", "small", "double", "reds", "jokers", "spades", "no_spades", "with_images") var deck_name : set = set_deck
 @export_enum("FrenchSuited", "zxyonitch", "PixelFantasy") var style : get = get_style, set = set_style
 
@@ -28,7 +28,7 @@ func init(params):
 	
 func before_add_card(card):
 	card.style = style
-	card.is_open = false
+	card.is_open = [true, false].pick_random()
 	return card
 	
 func draw_in_lines():
