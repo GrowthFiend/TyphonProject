@@ -6,6 +6,8 @@ var m_turn = 0
 func _ready():
 	randomize()
 	get_node("Table_with_Stake/Deck").set_appearance("Roughly")
+	get_node("Player0/Hand").set_appearance("Fan")
+	get_node("Player1/Hand").set_appearance("Fan")
 	get_node("Table_start/Deck").init({
 		"name": "full",
 		"style": ["FrenchSuited", "PixelFantasy", "zxyonitch"].pick_random(),

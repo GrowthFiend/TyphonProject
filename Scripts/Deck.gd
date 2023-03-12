@@ -9,45 +9,51 @@ var parser : get = get_parser
 @export var config_file : String # (String, FILE, "*.yaml")
 @export_enum("full", "full_with_jockers", "small", "double", "reds", "jokers", "spades", "no_spades", "with_images") var deck_name : set = set_deck
 @export_enum("FrenchSuited", "zxyonitch", "PixelFantasy") var style : get = get_style, set = set_style
-@export_enum("Stake3D", "One_on_one", "Roughly") var appearance: get = get_appearance, set = set_appearance
+@export_enum("Stake3D", "Fan", "One_on_one", "Roughly") var appearance: get = get_appearance, set = set_appearance
 
 const CARD_STEP = Vector2(0.6, 0.6) #логическое смещение в пикселях каждой последующей карты относительно предыдущей
 const RENDER_STEP = Vector2(3, 3) #смещение в пикселях некоторой группы карт относительно предыдущей группы, для того, чтобы при рендере колоды ее края выглядели красиво
+var FAN_RADIUS = 700
+var FAN_FI_STEP = 2*PI*2/360
+
 
 func _ready():
 	randomize()
 	appearance = "Stake3D"
 
-func position_by_num(number):
+func transform_by_num(card, number):
 	var pos = get_parent().position
-	match appearance:
-		"Stake3D":
-			return Vector2(pos.x + RENDER_STEP.x*round(CARD_STEP.x*(number)/RENDER_STEP.x),pos.y + RENDER_STEP.y*round(CARD_STEP.y*(number)/RENDER_STEP.y))
-		"One_on_one":
-			return Vector2(pos.x ,pos.y)
-		"Roughly":
-			return Vector2(pos.x + randi()%100-50 ,pos.y+ randi()%100-50)
-
-func rotation_by_num(number):
 	var rot = get_parent().rotation
+	var target_pos
+	var target_rot
 	match appearance:
 		"Stake3D":
-			return rot
+			card.need_update_target = true
+			target_pos = Vector2(pos.x + RENDER_STEP.x*round(CARD_STEP.x*(number)/RENDER_STEP.x),pos.y + RENDER_STEP.y*round(CARD_STEP.y*(number)/RENDER_STEP.y))
+			target_rot = rot
+		"Fan":
+			card.need_update_target = true
+			var fi = FAN_FI_STEP*number - FAN_FI_STEP*_cards.size()/2 + rot
+			target_pos = Vector2(pos.x + FAN_RADIUS*cos(fi- PI/2) + FAN_RADIUS*sin(rot), pos.y + FAN_RADIUS*sin(fi - PI/2) + FAN_RADIUS*cos(rot)) #TODO
+			target_rot = fi#TODO
 		"One_on_one":
-			return rot
+			target_pos = Vector2(pos.x ,pos.y)
+			target_rot = rot
 		"Roughly":
-			return rot + PI*(randi()%360)/360-PI/2
+			target_pos = Vector2(pos.x + randi()%100-50 ,pos.y+ randi()%100-50)
+			target_rot = rot + PI*(randi()%360)/360+PI/2
+	if card.need_update_target:
+			card.target_position = target_pos
+			card.target_rotation = target_rot
+			card.z_index = number+z_index
+			card.need_update_target = false
+
+			
 	
 func update_card_targets():
 	var i = 0
 	for card in _cards:
-		if appearance == "Stake3D":
-			card.need_update_target = true
-		if card.need_update_target:
-			card.target_position = position_by_num(i)
-			card.target_rotation = rotation_by_num(i)
-			card.need_update_target = false
-		card.z_index = i+z_index
+		transform_by_num(card, i)
 		i+=1
 	return self
 
