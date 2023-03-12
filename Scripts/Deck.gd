@@ -13,8 +13,8 @@ var parser : get = get_parser
 
 const CARD_STEP = Vector2(0.6, 0.6) #логическое смещение в пикселях каждой последующей карты относительно предыдущей
 const RENDER_STEP = Vector2(3, 3) #смещение в пикселях некоторой группы карт относительно предыдущей группы, для того, чтобы при рендере колоды ее края выглядели красиво
-var FAN_RADIUS = 700
-var FAN_FI_STEP = 2*PI*2/360
+const FAN_RADIUS = 700
+const FAN_FI_STEP = 2*PI*2/360
 
 
 func _ready():
