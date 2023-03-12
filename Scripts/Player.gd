@@ -9,7 +9,7 @@ func _on_Turn_pressed():
 	
 func turn_card():
 	var card = $Hand.pop_back()
-	card.open()
+	card.flip()
 	get_parent().get_node("Table/Stake").push_back(card)
 	$Turn.visible = false
 	if not is_stake_ok():

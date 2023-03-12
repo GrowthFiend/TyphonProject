@@ -6,7 +6,7 @@ var m_turn = 0
 func _ready():
 	randomize()
 	$Deck.init({
-		"name": ["full", "double", "spades"].pick_random(),
+		"name": "full",
 		"style": ["FrenchSuited", "PixelFantasy", "zxyonitch"].pick_random(),
 	}).shuffle()
 	hand_out_cards()
