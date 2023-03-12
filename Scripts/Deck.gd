@@ -11,8 +11,8 @@ var parser : get = get_parser
 @export_enum("FrenchSuited", "zxyonitch", "PixelFantasy") var style : get = get_style, set = set_style
 @export_enum("Stake3D", "One_on_one", "Roughly") var appearance: get = get_appearance, set = set_appearance
 
-const CARD_STEP = Vector2(0.2, 0.2) #логическое смещение в пикселях каждой последующей карты относительно предыдущей
-const RENDER_STEP = Vector2(2, 2) #смещение в пикселях некоторой группы карт относительно предыдущей группы, для того, чтобы при рендере колоды ее края выглядели красиво
+const CARD_STEP = Vector2(0.6, 0.6) #логическое смещение в пикселях каждой последующей карты относительно предыдущей
+const RENDER_STEP = Vector2(3, 3) #смещение в пикселях некоторой группы карт относительно предыдущей группы, для того, чтобы при рендере колоды ее края выглядели красиво
 
 func _ready():
 	randomize()
@@ -41,6 +41,8 @@ func rotation_by_num(number):
 func update_card_targets():
 	var i = 0
 	for card in _cards:
+		if appearance == "Stake3D":
+			card.need_update_target = true
 		if card.need_update_target:
 			card.target_position = position_by_num(i)
 			card.target_rotation = rotation_by_num(i)
