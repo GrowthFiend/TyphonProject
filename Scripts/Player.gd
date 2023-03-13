@@ -38,7 +38,7 @@ func check_win():
 	if $Hand.size() == 0:
 		get_tree().paused = true
 		get_parent().get_node("WinLabel").text = "Player %s Win!!!" % pl_id
-		get_parent().get_node("WinLabel").disabled = true
+		get_parent().get_node("WinLabel").visible = true
 	return
 
 func update_hud():
