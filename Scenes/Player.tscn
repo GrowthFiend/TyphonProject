@@ -9,11 +9,11 @@ script = ExtResource("2")
 [node name="Hand" parent="." instance=ExtResource("1")]
 
 [node name="Turn" type="Button" parent="."]
-visible = false
-offset_left = 104.0
-offset_top = -32.0
-offset_right = 149.0
-offset_bottom = -1.0
+offset_left = -24.0
+offset_top = -144.0
+offset_right = 24.0
+offset_bottom = -112.0
+disabled = true
 text = "Turn"
 
 [connection signal="pressed" from="Turn" to="." method="_on_Turn_pressed"]
