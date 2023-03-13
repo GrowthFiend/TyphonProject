@@ -15,13 +15,11 @@ position = Vector2(960, 544)
 
 [node name="Player0" parent="." instance=ExtResource("3")]
 position = Vector2(960, 896)
-"charaсter" = 0
 
 [node name="Player1" parent="." instance=ExtResource("3")]
 position = Vector2(960, 192)
 rotation = 3.14159
 pl_id = 1
-"charaсter" = 1
 
 [node name="WinLabel" type="Label" parent="."]
 visible = false

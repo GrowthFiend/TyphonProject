@@ -56,9 +56,6 @@ func update_card_targets():
 		i+=1
 	return self
 
-func _process(zella):
-	pass
-
 func init(params):
 	if params.has("name") and params["name"]:
 		deck_name = params["name"]

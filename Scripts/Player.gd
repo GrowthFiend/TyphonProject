@@ -1,6 +1,6 @@
 extends Node2D
 @export var pl_id = 0
-@export_enum("User", "Bot") var charaсter : get = get_character, set = set_character
+@export_enum("User", "Bot") var character : get = get_character, set = set_character
 
 func _ready():
 	pass
@@ -42,17 +42,17 @@ func check_win():
 	return
 
 func update_hud():
-	match charaсter:
+	match character:
 		"User":
 			$Turn.visible = true
 		"Bot":
 			$Turn.visible = false
 
-func set_character(new_charaсter : String):
-	if charaсter == new_charaсter:
+func set_character(new_character : String):
+	if character == new_character:
 		return
-	charaсter = new_charaсter
+	character = new_character
 	update_hud()
 
 func get_character():
-	return charaсter
+	return character
