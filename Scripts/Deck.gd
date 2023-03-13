@@ -33,8 +33,8 @@ func transform_by_num(card, number):
 		"Fan":
 			card.need_update_target = true
 			var fi = FAN_FI_STEP*number - FAN_FI_STEP*_cards.size()/2 + rot
-			target_pos = Vector2(pos.x + FAN_RADIUS*cos(fi- PI/2) + FAN_RADIUS*sin(rot), pos.y + FAN_RADIUS*sin(fi - PI/2) + FAN_RADIUS*cos(rot)) #TODO
-			target_rot = fi#TODO
+			target_pos = Vector2(pos.x + FAN_RADIUS*cos(fi- PI/2)  - FAN_RADIUS*sin(rot), pos.y + FAN_RADIUS*sin(fi - PI/2) + FAN_RADIUS*cos(rot))
+			target_rot = fi
 		"One_on_one":
 			target_pos = Vector2(pos.x ,pos.y)
 			target_rot = rot

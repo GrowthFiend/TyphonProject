@@ -15,6 +15,7 @@ position = Vector2(960, 544)
 
 [node name="Player0" parent="." instance=ExtResource("3")]
 position = Vector2(960, 896)
+rotation = -3.3021e-05
 
 [node name="Player1" parent="." instance=ExtResource("3")]
 position = Vector2(960, 192)
