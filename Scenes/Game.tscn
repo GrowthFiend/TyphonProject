@@ -7,20 +7,12 @@
 [node name="Game" type="Node2D"]
 process_mode = 1
 script = ExtResource("1")
+player_scene = ExtResource("3")
 
 [node name="Table_start" parent="." instance=ExtResource("4")]
 
 [node name="Table_with_Stake" parent="." instance=ExtResource("4")]
 position = Vector2(960, 544)
-
-[node name="Player0" parent="." instance=ExtResource("3")]
-position = Vector2(960, 896)
-rotation = -3.3021e-05
-
-[node name="Player1" parent="." instance=ExtResource("3")]
-position = Vector2(960, 192)
-rotation = 3.14159
-pl_id = 1
 
 [node name="WinLabel" type="Label" parent="."]
 visible = false
