@@ -1,5 +1,6 @@
 extends Node2D
 @export var pl_id = 0
+@export_enum("User", "Bot") var charaсter : get = get_character, set = set_character
 
 func _ready():
 	pass
@@ -11,12 +12,14 @@ func turn_card():
 	var card = $Hand.pop_back()
 	card.flip()
 	get_parent().get_node("Table_with_Stake/Deck").push_back(card)
-	$Turn.visible = false
+	$Turn.disabled = true
 	if not is_stake_ok():
 		await get_tree().create_timer(1).timeout
 		take_stake()
 	else : check_win()
-	get_parent().change_turn()
+	await get_tree().create_timer(1).timeout
+	get_parent().next_turn()
+	return
 
 func is_stake_ok():
 	return get_parent().get_node("Table_with_Stake/Deck").is_stake_ok()
@@ -29,9 +32,27 @@ func take_stake():
 		$Hand.push_front(card)
 		stake_size -= 1
 		await get_tree().create_timer(0.2).timeout
+	return
 
 func check_win():
 	if $Hand.size() == 0:
 		get_tree().paused = true
 		get_parent().get_node("WinLabel").text = "Player %s Win!!!" % pl_id
-		get_parent().get_node("WinLabel").visible = true
+		get_parent().get_node("WinLabel").disabled = true
+	return
+
+func update_hud():
+	match charaсter:
+		"User":
+			$Turn.visible = true
+		"Bot":
+			$Turn.visible = false
+
+func set_character(new_charaсter : String):
+	if charaсter == new_charaсter:
+		return
+	charaсter = new_charaсter
+	update_hud()
+
+func get_character():
+	return charaсter

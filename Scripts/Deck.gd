@@ -16,7 +16,6 @@ const STAKE3D_RENDER_STEP = Vector2(3, 3) #смещение в пикселях 
 const FAN_RADIUS = 700
 const FAN_FI_STEP = 2*PI*2/360
 
-
 func _ready():
 	randomize()
 	appearance = "Stake3D"
