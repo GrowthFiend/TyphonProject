@@ -4,7 +4,7 @@ extends Node2D
 var is_retired = false
 
 func _ready():
-	pass
+	$Name.text = name
 
 func _on_Turn_pressed():
 	pass

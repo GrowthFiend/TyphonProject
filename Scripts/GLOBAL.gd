@@ -1,3 +1,3 @@
 extends Node
 
-const GAME_SPEED = 1000/100.0 #в процентах
+const GAME_SPEED = 100/100.0 #в процентах

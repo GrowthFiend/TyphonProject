@@ -16,4 +16,11 @@ offset_bottom = -112.0
 disabled = true
 text = "Turn"
 
+[node name="Name" type="Label" parent="."]
+offset_left = -96.0
+offset_top = 104.0
+offset_right = 96.0
+offset_bottom = 127.0
+horizontal_alignment = 1
+
 [connection signal="pressed" from="Turn" to="." method="_on_Turn_pressed"]

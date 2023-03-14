@@ -18,19 +18,18 @@ func _ready():
 	var current_player_position = Vector2(0, TABLE_RADIUS)
 	const alpha_for_player = 2*PI/PLAYERS_COUNT
 	while i < PLAYERS_COUNT:
-		var current_player = "Player%s" % i
 		var player = player_scene.instantiate()
 		players.push_back(player)
 		add_child(player)
-		print(player.name)
-		player.name=current_player
-		get_node(current_player).set_character("Bot")
-		get_node(current_player).get_node("Hand").set_appearance("Fan")
-		get_node(current_player).position = TABLE_CENTER + current_player_position
-		get_node(current_player).rotation = current_player_position.angle()-PI/2
+		player.set_character("Bot")
+		player.get_node("Name").text = "Bot-%s" % i
+		player.get_node("Hand").set_appearance("Fan")
+		player.position = TABLE_CENTER + current_player_position
+		player.rotation = current_player_position.angle()-PI/2
 		current_player_position=current_player_position.rotated(alpha_for_player)
 		i += 1
-	get_node("Player0").set_character("User")
+	players[0].set_character("User")
+	players[0].get_node("Name").text = "Valera"
 	get_node("Table_start/Deck").init({
 		"name": "full",
 		"style": ["FrenchSuited", "PixelFantasy", "zxyonitch"].pick_random(),
@@ -45,12 +44,12 @@ func _process(_delta):
 func play():
 	is_paused = false
 	while not is_game_over and not get_tree().paused:
-		var current_player = "Player%s" % m_turn
-		if not get_node(current_player).is_retired:
-			get_node(current_player).get_node("Turn").disabled = false
-			if get_node(current_player).get_character() == "User":
-				await get_node(current_player).get_node("Turn").pressed
-			await turn_card(get_node(current_player))
+		var current_player = players[m_turn]
+		if not current_player.is_retired:
+			current_player.get_node("Turn").disabled = false
+			if current_player.get_character() == "User":
+				await current_player.get_node("Turn").pressed
+			await turn_card(current_player)
 			await get_tree().create_timer(1.5/GLOBAL.GAME_SPEED).timeout
 		m_turn = (m_turn+1)%PLAYERS_COUNT	
 	is_paused = true
@@ -60,8 +59,8 @@ func hand_out_cards():
 	while i > 0:
 		var card = get_node("Table_start/Deck").pop_back()
 		var turn = i%PLAYERS_COUNT
-		var current_player = "Player%s" % turn
-		get_node(current_player).get_node("Hand").push_back(card)
+		var current_player = players[turn]
+		current_player.get_node("Hand").push_back(card)
 		i -= 1
 		await get_tree().create_timer(0.05/GLOBAL.GAME_SPEED).timeout
 	return
@@ -105,9 +104,14 @@ func check_win(cur_player):
 		await get_tree().create_timer(2/GLOBAL.GAME_SPEED).timeout
 		cur_player.is_retired = true
 		players_in_game -= 1
-		if players_in_game == 1: 
+		if players_in_game == 1:
+			var looser
+			for player in players:
+				if not player.is_retired:
+					looser = player
+					break
 			get_tree().paused = true
-			$WinLabel.text = "We have a looser!!!"
+			$WinLabel.text = "%s is a looser!!!" % looser.get_node("Name").text
 			$WinLabel.visible = true
 			is_game_over=true
 	return
