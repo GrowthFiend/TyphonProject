@@ -24,14 +24,14 @@ func clear():
 func get_all_card_ids():
 	var ids = []
 	for card in _cards:
-		ids.append(card.get_id())
+		ids.push_back(card.get_id())
 	return ids
 
 func before_add_card(card):
 	return card
 	
 func add_card(card : Card):
-	_cards.append(card)
+	_cards.push_back(card)
 	add_child(card)
 	return card
 	

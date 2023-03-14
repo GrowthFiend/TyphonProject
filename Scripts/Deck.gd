@@ -161,21 +161,3 @@ func flip():
 	for card in _cards:
 		card.flip()
 	return self
-
-
-
-# --- Методы стопок только для игры "Пьяница"---
-
-func is_stake_ok():
-	if size() > 1:
-		return calculate_sthength(_cards[size()-1]) >= calculate_sthength(_cards[size() - 2])
-	else : return true
-
-func calculate_sthength(card):
-	match card.rank:
-		"jack": return 11
-		"queen": return 12
-		"king": return 13
-		"ace": return 14
-		"joker": return 15
-		_: return int(card.rank)

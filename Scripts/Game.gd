@@ -2,10 +2,14 @@ extends Node2D
 
 @export var player_scene: PackedScene
 
+var is_game_over = false
+var is_paused = false
 const PLAYERS_COUNT = 5 #будет выбор в меню
+var players_in_game = PLAYERS_COUNT
 const TABLE_CENTER = Vector2(960, 540)
 const TABLE_RADIUS = 400
 var m_turn = 0
+var players = []
 
 func _ready():
 	randomize()
@@ -16,7 +20,9 @@ func _ready():
 	while i < PLAYERS_COUNT:
 		var current_player = "Player%s" % i
 		var player = player_scene.instantiate()
+		players.push_back(player)
 		add_child(player)
+		print(player.name)
 		player.name=current_player
 		get_node(current_player).set_character("Bot")
 		get_node(current_player).get_node("Hand").set_appearance("Fan")
@@ -30,8 +36,25 @@ func _ready():
 		"style": ["FrenchSuited", "PixelFantasy", "zxyonitch"].pick_random(),
 	}).shuffle()
 	await hand_out_cards()
+	is_game_over = false
 	play()
 
+func _process(_delta):
+	if is_paused and not is_game_over: play()
+
+func play():
+	is_paused = false
+	while not is_game_over and not get_tree().paused:
+		var current_player = "Player%s" % m_turn
+		if not get_node(current_player).is_retired:
+			get_node(current_player).get_node("Turn").disabled = false
+			if get_node(current_player).get_character() == "User":
+				await get_node(current_player).get_node("Turn").pressed
+			await turn_card(get_node(current_player))
+			await get_tree().create_timer(1.5/GLOBAL.GAME_SPEED).timeout
+		m_turn = (m_turn+1)%PLAYERS_COUNT	
+	is_paused = true
+	
 func hand_out_cards():
 	var i = get_node("Table_start/Deck").size()
 	while i > 0:
@@ -42,16 +65,52 @@ func hand_out_cards():
 		i -= 1
 		await get_tree().create_timer(0.05/GLOBAL.GAME_SPEED).timeout
 	return
-
-func play():
-	var current_player = "Player%s" % m_turn
-	get_node(current_player).get_node("Turn").disabled = false
-	if get_node(current_player).get_character() == "Bot":
-		await get_tree().create_timer(0.5/GLOBAL.GAME_SPEED).timeout
-		await get_node(current_player).turn_card()
+	
+func turn_card(cur_player):
+	var card = cur_player.get_node("Hand").pop_back()
+	card.flip()
+	get_node("Table_with_Stake/Deck").push_back(card)
+	cur_player.get_node("Turn").disabled = true
+	if not is_stake_ok() : await take_stake(cur_player)
+	else : await check_win(cur_player)
 	return
 
-func next_turn():
-	m_turn = (m_turn+1)%PLAYERS_COUNT
-	play()
+func is_stake_ok():
+	var stake = get_node("Table_with_Stake/Deck")
+	if stake.size() > 1:
+		return calculate_sthength(stake._cards[stake.size()-1]) >= calculate_sthength(stake._cards[stake.size() - 2])
+	else : return true
+	
+func calculate_sthength(card):
+	match card.rank:
+		"jack": return 11
+		"queen": return 12
+		"king": return 13
+		"ace": return 14
+		"joker": return 15
+		_: return int(card.rank)
+	
+func take_stake(cur_player):
+	await get_tree().create_timer(1.5/GLOBAL.GAME_SPEED).timeout
+	var stake_size = get_node("Table_with_Stake/Deck").size()
+	while stake_size != 0:
+		var card = get_node("Table_with_Stake/Deck").pop_front()
+		card.flip()
+		cur_player.get_node("Hand").push_front(card)
+		stake_size -= 1
 	return
+
+func check_win(cur_player):
+	if cur_player.get_node("Hand").size() == 0:
+		await get_tree().create_timer(2/GLOBAL.GAME_SPEED).timeout
+		cur_player.is_retired = true
+		players_in_game -= 1
+		if players_in_game == 1: 
+			get_tree().paused = true
+			$WinLabel.text = "We have a looser!!!"
+			$WinLabel.visible = true
+			is_game_over=true
+	return
+
+
+
