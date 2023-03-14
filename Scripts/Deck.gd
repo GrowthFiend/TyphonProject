@@ -39,6 +39,7 @@ func transform_by_num(card, number):
 			target_pos = pos + FAN_RADIUS*(Vector2.from_angle(fi-PI/2) + Vector2.from_angle(rot+PI/2))
 			target_rot = fi
 		"One_on_one":
+			card.need_update_target = true
 			target_pos = pos
 			target_rot = rot
 		"Roughly":

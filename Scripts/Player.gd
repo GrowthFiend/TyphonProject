@@ -14,10 +14,10 @@ func turn_card():
 	get_parent().get_node("Table_with_Stake/Deck").push_back(card)
 	$Turn.disabled = true
 	if not is_stake_ok():
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(1/GLOBAL.GAME_SPEED).timeout
 		take_stake()
 	else : check_win()
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1/GLOBAL.GAME_SPEED).timeout
 	get_parent().next_turn()
 	return
 
@@ -31,7 +31,7 @@ func take_stake():
 		card.flip()
 		$Hand.push_front(card)
 		stake_size -= 1
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2/GLOBAL.GAME_SPEED).timeout
 	return
 
 func check_win():

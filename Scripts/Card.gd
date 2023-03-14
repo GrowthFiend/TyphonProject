@@ -11,7 +11,7 @@ extends Area2D
 var target_position = Vector2(0, 0)
 var target_rotation = 0
 var need_update_target = true
-var speed = 3
+var speed = 3*GLOBAL.GAME_SPEED
 
 func _ready():
 	update_view()
