@@ -1,9 +1,20 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://im0lghhc3x3j"]
 
-[ext_resource path="res://Scripts/Deck.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Card.tscn" type="PackedScene" id=2]
+[ext_resource type="Script" path="res://Scripts/Deck.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://4qn1c6ououqj" path="res://Scenes/Card.tscn" id="2"]
 
-[node name="Deck" type="Node2D"]
-script = ExtResource( 1 )
-card_scene = ExtResource( 2 )
-config_file = "res://Config/DeckPresets/StandardCards.yaml"
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k61n2"]
+
+[node name="Deck" type="Area2D"]
+script = ExtResource("1")
+config_file = "res://Config/DeckPresets/StandardCards.ini"
+card_scene = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k61n2")
+disabled = true
+
+[node name="Helpful_reference" type="ColorRect" parent="."]
+visible = false
+offset_right = 12.0
+offset_bottom = 277.0

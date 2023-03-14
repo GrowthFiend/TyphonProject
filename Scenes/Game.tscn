@@ -1,21 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cp07buqf80smr"]
+[gd_scene load_steps=4 format=3 uid="uid://uxakjln3n68v"]
 
 [ext_resource type="Script" path="res://Scripts/Game.gd" id="1"]
-[ext_resource type="PackedScene" path="res://Scenes/Player.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://Scenes/Table.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://cavxkedp4tvuw" path="res://Scenes/Player.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://b5ffqe4vn6s53" path="res://Scenes/Table.tscn" id="4"]
 
 [node name="Game" type="Node2D"]
 process_mode = 1
 script = ExtResource("1")
+player_scene = ExtResource("3")
 
-[node name="Table" parent="." instance=ExtResource("4")]
+[node name="Table_start" parent="." instance=ExtResource("4")]
 
-[node name="Player0" parent="." instance=ExtResource("3")]
-position = Vector2(960, 768)
-
-[node name="Player1" parent="." instance=ExtResource("3")]
-position = Vector2(960, 64)
-pl_id = 1
+[node name="Table_with_Stake" parent="." instance=ExtResource("4")]
+position = Vector2(960, 544)
 
 [node name="WinLabel" type="Label" parent="."]
 visible = false
