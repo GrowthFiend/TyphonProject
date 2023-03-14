@@ -29,8 +29,7 @@ func _ready():
 		"name": "full",
 		"style": ["FrenchSuited", "PixelFantasy", "zxyonitch"].pick_random(),
 	}).shuffle()
-	hand_out_cards()
-	await get_tree().create_timer(0.08 * get_node("Table_with_Stake/Deck").size()/GLOBAL.GAME_SPEED).timeout
+	await hand_out_cards()
 	play()
 
 func hand_out_cards():
@@ -49,7 +48,7 @@ func play():
 	get_node(current_player).get_node("Turn").disabled = false
 	if get_node(current_player).get_character() == "Bot":
 		await get_tree().create_timer(0.5/GLOBAL.GAME_SPEED).timeout
-		get_node(current_player).turn_card()
+		await get_node(current_player).turn_card()
 	return
 
 func next_turn():

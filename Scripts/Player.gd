@@ -1,5 +1,5 @@
 extends Node2D
-@export var pl_id = 0
+
 @export_enum("User", "Bot") var character : get = get_character, set = set_character
 
 func _ready():
@@ -15,8 +15,9 @@ func turn_card():
 	$Turn.disabled = true
 	if not is_stake_ok():
 		await get_tree().create_timer(1/GLOBAL.GAME_SPEED).timeout
-		take_stake()
-	else : check_win()
+		await take_stake()
+	else : 
+		check_win()
 	await get_tree().create_timer(1/GLOBAL.GAME_SPEED).timeout
 	get_parent().next_turn()
 	return
@@ -37,7 +38,7 @@ func take_stake():
 func check_win():
 	if $Hand.size() == 0:
 		get_tree().paused = true
-		get_parent().get_node("WinLabel").text = "Player %s Win!!!" % pl_id
+		get_parent().get_node("WinLabel").text = "%s Win!!!" % name
 		get_parent().get_node("WinLabel").visible = true
 	return
 
