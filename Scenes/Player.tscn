@@ -7,7 +7,6 @@
 script = ExtResource("2")
 
 [node name="Hand" parent="." instance=ExtResource("1")]
-appearance = "Stake3D"
 
 [node name="Turn" type="Button" parent="."]
 offset_left = -24.0

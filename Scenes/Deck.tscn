@@ -8,6 +8,7 @@
 [node name="Deck" type="Area2D"]
 script = ExtResource("1")
 config_file = "res://Config/DeckPresets/StandardCards.ini"
+appearance = "Stake3D"
 card_scene = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

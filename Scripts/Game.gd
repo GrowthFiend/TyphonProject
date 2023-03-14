@@ -12,7 +12,7 @@ func _ready():
 	get_node("Table_with_Stake/Deck").set_appearance("Roughly")
 	var i = 0
 	var current_player_position = Vector2(0, TABLE_RADIUS)
-	const alfa_for_player = 2*PI/PLAYERS_COUNT
+	const alpha_for_player = 2*PI/PLAYERS_COUNT
 	while i < PLAYERS_COUNT:
 		var current_player = "Player%s" % i
 		var player = player_scene.instantiate()
@@ -22,7 +22,7 @@ func _ready():
 		get_node(current_player).get_node("Hand").set_appearance("Fan")
 		get_node(current_player).position = TABLE_CENTER + current_player_position
 		get_node(current_player).rotation = current_player_position.angle()-PI/2
-		current_player_position=current_player_position.rotated(alfa_for_player)
+		current_player_position=current_player_position.rotated(alpha_for_player)
 		i += 1
 	get_node("Player0").set_character("User")
 	get_node("Table_start/Deck").init({
