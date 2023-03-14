@@ -30,7 +30,7 @@ func _ready():
 		"style": ["FrenchSuited", "PixelFantasy", "zxyonitch"].pick_random(),
 	}).shuffle()
 	hand_out_cards()
-	await get_tree().create_timer(5/GLOBAL.GAME_SPEED).timeout
+	await get_tree().create_timer(0.08 * get_node("Table_with_Stake/Deck").size()/GLOBAL.GAME_SPEED).timeout
 	play()
 
 func hand_out_cards():
