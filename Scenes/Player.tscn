@@ -7,7 +7,6 @@
 script = ExtResource("2")
 
 [node name="Hand" parent="." instance=ExtResource("1")]
-appearance = "Stake3D"
 
 [node name="Turn" type="Button" parent="."]
 offset_left = -24.0
@@ -16,5 +15,12 @@ offset_right = 24.0
 offset_bottom = -112.0
 disabled = true
 text = "Turn"
+
+[node name="Name" type="Label" parent="."]
+offset_left = -96.0
+offset_top = 104.0
+offset_right = 96.0
+offset_bottom = 127.0
+horizontal_alignment = 1
 
 [connection signal="pressed" from="Turn" to="." method="_on_Turn_pressed"]

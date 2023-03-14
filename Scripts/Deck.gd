@@ -14,7 +14,10 @@ var parser : get = get_parser
 const STAKE3D_CARD_STEP = Vector2(0.6, 0.6) #логическое смещение в пикселях каждой последующей карты относительно предыдущей
 const STAKE3D_RENDER_STEP = Vector2(3, 3) #смещение в пикселях некоторой группы карт относительно предыдущей группы, для того, чтобы при рендере колоды ее края выглядели красиво
 const FAN_RADIUS = 700
-const FAN_FI_STEP = 2*PI*2/360
+const FAN_FI_STEP = 2 * PI*2/360
+const ROUGHLY_X_CHAOS = 50
+const ROUGHLY_Y_CHAOS = 50
+const ROUGHLY_A_CHAOS = PI
 
 func _ready():
 	randomize()
@@ -28,19 +31,20 @@ func transform_by_num(card, number):
 	match appearance:
 		"Stake3D":
 			card.need_update_target = true
-			target_pos = Vector2(pos.x + STAKE3D_RENDER_STEP.x*round(STAKE3D_CARD_STEP.x*(number)/STAKE3D_RENDER_STEP.x),pos.y + STAKE3D_RENDER_STEP.y*round(STAKE3D_CARD_STEP.y*(number)/STAKE3D_RENDER_STEP.y))
+			target_pos = pos + STAKE3D_RENDER_STEP*round(STAKE3D_CARD_STEP*(number)/STAKE3D_RENDER_STEP)
 			target_rot = rot
 		"Fan":
 			card.need_update_target = true
-			var fi = FAN_FI_STEP*number - FAN_FI_STEP*_cards.size()/2 + rot
-			target_pos = Vector2(pos.x + FAN_RADIUS*cos(fi- PI/2)  - FAN_RADIUS*sin(rot), pos.y + FAN_RADIUS*sin(fi - PI/2) + FAN_RADIUS*cos(rot))
+			var fi = FAN_FI_STEP*(number - _cards.size()/2.0) + rot
+			target_pos = pos + FAN_RADIUS*(Vector2.from_angle(fi-PI/2) + Vector2.from_angle(rot+PI/2))
 			target_rot = fi
 		"One_on_one":
-			target_pos = Vector2(pos.x ,pos.y)
+			card.need_update_target = true
+			target_pos = pos
 			target_rot = rot
 		"Roughly":
-			target_pos = Vector2(pos.x + randi()%100-50 ,pos.y+ randi()%100-50)
-			target_rot = rot + PI*(randi()%360)/360+PI/2
+			target_pos = pos + Vector2(randi_range(-ROUGHLY_X_CHAOS, ROUGHLY_X_CHAOS) , randi_range(-ROUGHLY_Y_CHAOS, ROUGHLY_Y_CHAOS))
+			target_rot = rot + randf_range(-ROUGHLY_A_CHAOS, ROUGHLY_A_CHAOS)
 	if card.need_update_target:
 			card.target_position = target_pos
 			card.target_rotation = target_rot
@@ -157,21 +161,3 @@ func flip():
 	for card in _cards:
 		card.flip()
 	return self
-
-
-
-# --- Методы стопок только для игры "Пьяница"---
-
-func is_stake_ok():
-	if size() > 1:
-		return calculate_sthength(_cards[size()-1]) >= calculate_sthength(_cards[size() - 2])
-	else : return true
-
-func calculate_sthength(card):
-	match card.rank:
-		"jack": return 11
-		"queen": return 12
-		"king": return 13
-		"ace": return 14
-		"joker": return 15
-		_: return int(card.rank)
