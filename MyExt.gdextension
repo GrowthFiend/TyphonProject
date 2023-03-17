@@ -1,0 +1,10 @@
+[configuration]
+entry_symbol = "gdext_rust_init"
+
+[libraries]
+linux.debug.x86_64 = "res://RustClasses/target/debug/librust_classes.so"
+linux.release.x86_64 = "res://RustClasses/target/release/librust_classes.so"
+windows.debug.x86_64 = "res://RustClasses/target/debug/rust_classes.dll"
+windows.release.x86_64 = "res://RustClasses/target/release/rust_classes.dll"
+macos.debug = "res://RustClasses/target/debug/rust_classes.dylib"
+macos.release = "res://RustClasses/target/release/rust_classes.dylib"

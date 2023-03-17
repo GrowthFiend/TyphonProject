@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnue3cwynp5xo"]
+[gd_scene load_steps=5 format=3 uid="uid://cnue3cwynp5xo"]
 
 [ext_resource type="Script" path="res://Scripts/ColorRect.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://domxv723ym04x" path="res://Scenes/Menu.tscn" id="2"]
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_00bil"]
 
 [node name="Main" type="Node2D"]
 process_mode = 3
@@ -16,3 +18,8 @@ script = ExtResource("1")
 
 [node name="Menu" parent="." instance=ExtResource("2")]
 process_mode = 0
+
+[node name="TestClass" type="TestClass" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestClass"]
+shape = SubResource("CircleShape2D_00bil")
