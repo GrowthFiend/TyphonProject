@@ -47,10 +47,15 @@ func play():
 		var current_player = players[m_turn]
 		if not current_player.is_retired:
 			current_player.get_node("Turn").disabled = false
+			$Camera2D.position = (current_player.position-Vector2(1920/2, 1080/2))/2 + Vector2(1920/2, 1080/2)
+			$Camera2D.target_zoom = Vector2(1.3, 1.3)
+			await get_tree().create_timer(0.5/GLOBAL.GAME_SPEED).timeout
 			if current_player.get_character() == "User":
 				await current_player.get_node("Turn").pressed
+			$Camera2D.position = Vector2(1920/2, 1080/2)
+			$Camera2D.target_zoom = Vector2(1, 1)
 			await turn_card(current_player)
-			await get_tree().create_timer(1.5/GLOBAL.GAME_SPEED).timeout
+			await get_tree().create_timer(1/GLOBAL.GAME_SPEED).timeout
 		m_turn = (m_turn+1)%PLAYERS_COUNT	
 	is_paused = true
 	
@@ -90,7 +95,10 @@ func calculate_sthength(card):
 		_: return int(card.rank)
 	
 func take_stake(cur_player):
+
 	await get_tree().create_timer(1.5/GLOBAL.GAME_SPEED).timeout
+	$Camera2D.position = (cur_player.position-Vector2(1920/2, 1080/2))/2 + Vector2(1920/2, 1080/2)
+	$Camera2D.target_zoom = Vector2(1.1, 1.1)
 	var stake_size = get_node("Table_with_Stake/Deck").size()
 	while stake_size != 0:
 		var card = get_node("Table_with_Stake/Deck").pop_front()

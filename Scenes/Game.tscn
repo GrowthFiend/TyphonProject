@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://uxakjln3n68v"]
+[gd_scene load_steps=5 format=3 uid="uid://uxakjln3n68v"]
 
 [ext_resource type="Script" path="res://Scripts/Game.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cavxkedp4tvuw" path="res://Scenes/Player.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://b5ffqe4vn6s53" path="res://Scenes/Table.tscn" id="4"]
+[ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="4_5vlaq"]
 
 [node name="Game" type="Node2D"]
 process_mode = 1
@@ -20,3 +21,8 @@ offset_left = 792.0
 offset_top = 448.0
 offset_right = 876.0
 offset_bottom = 462.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+script = ExtResource("4_5vlaq")
